@@ -7,6 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		238334E32A1C1A4300319E7A /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E22A1C1A4300319E7A /* Grid.swift */; };
+		238334E52A1C226400319E7A /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E42A1C226400319E7A /* StateMachine.swift */; };
+		238334E72A1C228900319E7A /* MovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E62A1C228900319E7A /* MovementController.swift */; };
+		238334E92A1C412800319E7A /* Cow_LOD3.dae in Resources */ = {isa = PBXBuildFile; fileRef = 238334E82A1C412700319E7A /* Cow_LOD3.dae */; };
+		238334EB2A1C495B00319E7A /* Cow_LOD3.scn in Resources */ = {isa = PBXBuildFile; fileRef = 238334EA2A1C495B00319E7A /* Cow_LOD3.scn */; };
+		238334ED2A1C878000319E7A /* Cow.usdz in Resources */ = {isa = PBXBuildFile; fileRef = 238334EC2A1C878000319E7A /* Cow.usdz */; };
+		238334EF2A1C8FE300319E7A /* Colobus_Walk.scn in Resources */ = {isa = PBXBuildFile; fileRef = 238334EE2A1C8FE300319E7A /* Colobus_Walk.scn */; };
+		238334F12A1C8FF700319E7A /* Colobus_LOD3.scn in Resources */ = {isa = PBXBuildFile; fileRef = 238334F02A1C8FF700319E7A /* Colobus_LOD3.scn */; };
+		238334F32A1C900800319E7A /* Colobus_Idle_A.scn in Resources */ = {isa = PBXBuildFile; fileRef = 238334F22A1C900800319E7A /* Colobus_Idle_A.scn */; };
+		238334F52A1C901A00319E7A /* Colobus_Clicked.scn in Resources */ = {isa = PBXBuildFile; fileRef = 238334F42A1C901A00319E7A /* Colobus_Clicked.scn */; };
+		238334F72A1D314000319E7A /* CrateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334F62A1D314000319E7A /* CrateView.swift */; };
+		238334FB2A1D469F00319E7A /* crate.png in Resources */ = {isa = PBXBuildFile; fileRef = 238334FA2A1D469F00319E7A /* crate.png */; };
+		238334FF2A1D4D2C00319E7A /* SubjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334FE2A1D4D2C00319E7A /* SubjectsListView.swift */; };
+		238335022A1D506300319E7A /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 238335012A1D506300319E7A /* SwiftUICharts */; };
 		23D5791C2A17F9840055C693 /* Study_FarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5791B2A17F9840055C693 /* Study_FarmApp.swift */; };
 		23D5791E2A17F9840055C693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5791D2A17F9840055C693 /* ContentView.swift */; };
 		23D579202A17F9860055C693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23D5791F2A17F9860055C693 /* Assets.xcassets */; };
@@ -45,9 +59,6 @@
 		23E9FB952A1B1D0E002AB389 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB942A1B1D0E002AB389 /* Animal.swift */; };
 		23E9FB962A1B1D0E002AB389 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB942A1B1D0E002AB389 /* Animal.swift */; };
 		23E9FB972A1B1D0E002AB389 /* Animal.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB942A1B1D0E002AB389 /* Animal.swift */; };
-		23E9FB992A1B29C3002AB389 /* FarmEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB982A1B29C3002AB389 /* FarmEntities.swift */; };
-		23E9FB9A2A1B29C3002AB389 /* FarmEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB982A1B29C3002AB389 /* FarmEntities.swift */; };
-		23E9FB9B2A1B29C3002AB389 /* FarmEntities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB982A1B29C3002AB389 /* FarmEntities.swift */; };
 		23E9FB9D2A1B30BF002AB389 /* AnimalFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */; };
 		23E9FB9E2A1B30BF002AB389 /* AnimalFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */; };
 		23E9FB9F2A1B30BF002AB389 /* AnimalFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */; };
@@ -57,10 +68,6 @@
 		23E9FBDE2A1BFE8A002AB389 /* T_Colobus.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */; };
 		23E9FBDF2A1BFE8A002AB389 /* T_Colobus.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */; };
 		23E9FBE02A1BFE8A002AB389 /* T_Colobus.png in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */; };
-		23E9FC022A1C0281002AB389 /* Colobus_Walk.dae in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FC012A1C0281002AB389 /* Colobus_Walk.dae */; };
-		23E9FC042A1C034F002AB389 /* Colobus_LOD3.dae in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FC032A1C034F002AB389 /* Colobus_LOD3.dae */; };
-		23E9FC062A1C04C6002AB389 /* Colobus_Idle_A.dae in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FC052A1C04C6002AB389 /* Colobus_Idle_A.dae */; };
-		23E9FC082A1C04E1002AB389 /* Colobus_Clicked.dae in Resources */ = {isa = PBXBuildFile; fileRef = 23E9FC072A1C04E1002AB389 /* Colobus_Clicked.dae */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -81,6 +88,19 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		238334E22A1C1A4300319E7A /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
+		238334E42A1C226400319E7A /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
+		238334E62A1C228900319E7A /* MovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementController.swift; sourceTree = "<group>"; };
+		238334E82A1C412700319E7A /* Cow_LOD3.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Cow_LOD3.dae; path = ../../../Cow_LOD3.dae; sourceTree = "<group>"; };
+		238334EA2A1C495B00319E7A /* Cow_LOD3.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Cow_LOD3.scn; path = ../../../Cow_LOD3.scn; sourceTree = "<group>"; };
+		238334EC2A1C878000319E7A /* Cow.usdz */ = {isa = PBXFileReference; lastKnownFileType = file.usdz; name = Cow.usdz; path = ../../../Cow.usdz; sourceTree = "<group>"; };
+		238334EE2A1C8FE300319E7A /* Colobus_Walk.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Walk.scn; path = ../../../Colobus_Walk.scn; sourceTree = "<group>"; };
+		238334F02A1C8FF700319E7A /* Colobus_LOD3.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_LOD3.scn; path = ../../../Colobus_LOD3.scn; sourceTree = "<group>"; };
+		238334F22A1C900800319E7A /* Colobus_Idle_A.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Idle_A.scn; path = ../../../Colobus_Idle_A.scn; sourceTree = "<group>"; };
+		238334F42A1C901A00319E7A /* Colobus_Clicked.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Clicked.scn; path = ../../../Colobus_Clicked.scn; sourceTree = "<group>"; };
+		238334F62A1D314000319E7A /* CrateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrateView.swift; sourceTree = "<group>"; };
+		238334FA2A1D469F00319E7A /* crate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crate.png; path = ../../../crate.png; sourceTree = "<group>"; };
+		238334FE2A1D4D2C00319E7A /* SubjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsListView.swift; sourceTree = "<group>"; };
 		23D579182A17F9840055C693 /* Study Farm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Farm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D5791B2A17F9840055C693 /* Study_FarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study_FarmApp.swift; sourceTree = "<group>"; };
 		23D5791D2A17F9840055C693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -104,14 +124,9 @@
 		23E9FB8C2A1AFF90002AB389 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		23E9FB902A1B150C002AB389 /* ShopView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopView.swift; sourceTree = "<group>"; };
 		23E9FB942A1B1D0E002AB389 /* Animal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Animal.swift; sourceTree = "<group>"; };
-		23E9FB982A1B29C3002AB389 /* FarmEntities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FarmEntities.swift; sourceTree = "<group>"; };
 		23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimalFactory.swift; sourceTree = "<group>"; };
 		23E9FBA02A1BCA26002AB389 /* ShopViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopViewModel.swift; sourceTree = "<group>"; };
 		23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = T_Colobus.png; path = "../../../untitled folder 4/T_Colobus.png"; sourceTree = "<group>"; };
-		23E9FC012A1C0281002AB389 /* Colobus_Walk.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Colobus_Walk.dae; path = ../../../Colobus_Walk.dae; sourceTree = "<group>"; };
-		23E9FC032A1C034F002AB389 /* Colobus_LOD3.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Colobus_LOD3.dae; path = ../../../Colobus_LOD3.dae; sourceTree = "<group>"; };
-		23E9FC052A1C04C6002AB389 /* Colobus_Idle_A.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Colobus_Idle_A.dae; path = ../../../Colobus_Idle_A.dae; sourceTree = "<group>"; };
-		23E9FC072A1C04E1002AB389 /* Colobus_Clicked.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Colobus_Clicked.dae; path = ../../../Colobus_Clicked.dae; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -120,6 +135,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				23E9FB5D2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
+				238335022A1D506300319E7A /* SwiftUICharts in Frameworks */,
 				23E9FB642A1959A3002AB389 /* FirebaseAuth in Frameworks */,
 				23E9FB662A1959A3002AB389 /* FirebaseFirestore in Frameworks */,
 			);
@@ -167,13 +183,17 @@
 			isa = PBXGroup;
 			children = (
 				23E9FB5E2A195596002AB389 /* AuthViewModel.swift */,
+				238334FE2A1D4D2C00319E7A /* SubjectsListView.swift */,
+				238334E22A1C1A4300319E7A /* Grid.swift */,
 				23E9FB672A195A03002AB389 /* LoginView.swift */,
 				23E9FB6B2A195FBD002AB389 /* CreateAccountView.swift */,
 				23E9FB902A1B150C002AB389 /* ShopView.swift */,
 				23E9FBA02A1BCA26002AB389 /* ShopViewModel.swift */,
-				23E9FB982A1B29C3002AB389 /* FarmEntities.swift */,
+				238334F62A1D314000319E7A /* CrateView.swift */,
 				23D5791B2A17F9840055C693 /* Study_FarmApp.swift */,
 				23E9FB942A1B1D0E002AB389 /* Animal.swift */,
+				238334E42A1C226400319E7A /* StateMachine.swift */,
+				238334E62A1C228900319E7A /* MovementController.swift */,
 				23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */,
 				23E9FB732A199999002AB389 /* FarmView.swift */,
 				23D579512A17FE050055C693 /* StudySession.swift */,
@@ -184,10 +204,14 @@
 				23E9FB832A1ACE99002AB389 /* FriendsView.swift */,
 				23E9FB692A195B15002AB389 /* AppDelegate.swift */,
 				23D5791F2A17F9860055C693 /* Assets.xcassets */,
-				23E9FC012A1C0281002AB389 /* Colobus_Walk.dae */,
-				23E9FC032A1C034F002AB389 /* Colobus_LOD3.dae */,
-				23E9FC052A1C04C6002AB389 /* Colobus_Idle_A.dae */,
-				23E9FC072A1C04E1002AB389 /* Colobus_Clicked.dae */,
+				238334EE2A1C8FE300319E7A /* Colobus_Walk.scn */,
+				238334F02A1C8FF700319E7A /* Colobus_LOD3.scn */,
+				238334F22A1C900800319E7A /* Colobus_Idle_A.scn */,
+				238334F42A1C901A00319E7A /* Colobus_Clicked.scn */,
+				238334FA2A1D469F00319E7A /* crate.png */,
+				238334EC2A1C878000319E7A /* Cow.usdz */,
+				238334E82A1C412700319E7A /* Cow_LOD3.dae */,
+				238334EA2A1C495B00319E7A /* Cow_LOD3.scn */,
 				23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */,
 				23D579212A17F9860055C693 /* Preview Content */,
 			);
@@ -247,6 +271,7 @@
 				23E9FB5C2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport */,
 				23E9FB632A1959A3002AB389 /* FirebaseAuth */,
 				23E9FB652A1959A3002AB389 /* FirebaseFirestore */,
+				238335012A1D506300319E7A /* SwiftUICharts */,
 			);
 			productName = "Study Farm";
 			productReference = 23D579182A17F9840055C693 /* Study Farm.app */;
@@ -322,6 +347,7 @@
 			mainGroup = 23D5790F2A17F9840055C693;
 			packageReferences = (
 				23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+				238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */,
 			);
 			productRefGroup = 23D579192A17F9840055C693 /* Products */;
 			projectDirPath = "";
@@ -339,14 +365,18 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23E9FC082A1C04E1002AB389 /* Colobus_Clicked.dae in Resources */,
-				23E9FC042A1C034F002AB389 /* Colobus_LOD3.dae in Resources */,
+				238334F32A1C900800319E7A /* Colobus_Idle_A.scn in Resources */,
+				238334F12A1C8FF700319E7A /* Colobus_LOD3.scn in Resources */,
 				23D579232A17F9860055C693 /* Preview Assets.xcassets in Resources */,
+				238334FB2A1D469F00319E7A /* crate.png in Resources */,
 				23E9FB8D2A1AFF90002AB389 /* GoogleService-Info.plist in Resources */,
+				238334ED2A1C878000319E7A /* Cow.usdz in Resources */,
+				238334F52A1C901A00319E7A /* Colobus_Clicked.scn in Resources */,
 				23E9FBDE2A1BFE8A002AB389 /* T_Colobus.png in Resources */,
-				23E9FC022A1C0281002AB389 /* Colobus_Walk.dae in Resources */,
-				23E9FC062A1C04C6002AB389 /* Colobus_Idle_A.dae in Resources */,
 				23D579202A17F9860055C693 /* Assets.xcassets in Resources */,
+				238334EB2A1C495B00319E7A /* Cow_LOD3.scn in Resources */,
+				238334E92A1C412800319E7A /* Cow_LOD3.dae in Resources */,
+				238334EF2A1C8FE300319E7A /* Colobus_Walk.scn in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -379,6 +409,8 @@
 				23E9FB742A199999002AB389 /* FarmView.swift in Sources */,
 				23D579522A17FE050055C693 /* StudySession.swift in Sources */,
 				23E9FB952A1B1D0E002AB389 /* Animal.swift in Sources */,
+				238334FF2A1D4D2C00319E7A /* SubjectsListView.swift in Sources */,
+				238334E72A1C228900319E7A /* MovementController.swift in Sources */,
 				23E9FBA12A1BCA26002AB389 /* ShopViewModel.swift in Sources */,
 				23E9FB782A1AAD4B002AB389 /* ProfileView.swift in Sources */,
 				23E9FB7C2A1ACDCC002AB389 /* TimerView.swift in Sources */,
@@ -386,10 +418,12 @@
 				23E9FB842A1ACE99002AB389 /* FriendsView.swift in Sources */,
 				23E9FB912A1B150C002AB389 /* ShopView.swift in Sources */,
 				23E9FB682A195A03002AB389 /* LoginView.swift in Sources */,
+				238334E32A1C1A4300319E7A /* Grid.swift in Sources */,
 				23E9FB5F2A195596002AB389 /* AuthViewModel.swift in Sources */,
 				23D5791E2A17F9840055C693 /* ContentView.swift in Sources */,
+				238334E52A1C226400319E7A /* StateMachine.swift in Sources */,
 				23D5791C2A17F9840055C693 /* Study_FarmApp.swift in Sources */,
-				23E9FB992A1B29C3002AB389 /* FarmEntities.swift in Sources */,
+				238334F72A1D314000319E7A /* CrateView.swift in Sources */,
 				23E9FB6A2A195B15002AB389 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -406,7 +440,6 @@
 				23E9FB602A195596002AB389 /* AuthViewModel.swift in Sources */,
 				23E9FB9E2A1B30BF002AB389 /* AnimalFactory.swift in Sources */,
 				23E9FB752A199999002AB389 /* FarmView.swift in Sources */,
-				23E9FB9A2A1B29C3002AB389 /* FarmEntities.swift in Sources */,
 				23E9FBA22A1BCA26002AB389 /* ShopViewModel.swift in Sources */,
 				23D5792D2A17F9870055C693 /* Study_FarmTests.swift in Sources */,
 			);
@@ -416,7 +449,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				23E9FB9B2A1B29C3002AB389 /* FarmEntities.swift in Sources */,
 				23E9FB9F2A1B30BF002AB389 /* AnimalFactory.swift in Sources */,
 				23E9FB7E2A1ACDCC002AB389 /* TimerView.swift in Sources */,
 				23D579392A17F9870055C693 /* Study_FarmUITestsLaunchTests.swift in Sources */,
@@ -741,6 +773,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AppPear/ChartView.git";
+			requirement = {
+				kind = exactVersion;
+				version = 1.5.5;
+			};
+		};
 		23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -752,6 +792,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		238335012A1D506300319E7A /* SwiftUICharts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */;
+			productName = SwiftUICharts;
+		};
 		23E9FB5C2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;

@@ -9,27 +9,40 @@ import Foundation
 import SwiftUI
 
 
-
 struct ShopView: View {
     @ObservedObject var shopViewModel = ShopViewModel()
 
     var body: some View {
         VStack {
-            Text("Welcome to the Shop!")
+            Text("Shop")
+                .font(.largeTitle)
+                .bold()
+                .padding()
+
             Text("You have \(shopViewModel.currency) Farm Bucks.")
-            Button(action: {
-                shopViewModel.buyAnimalCrate()
-            }) {
-                Text("Buy Animal Crate for \(shopViewModel.cratePrice) Farm Bucks")
+                .font(.headline)
+                .padding(.horizontal)
+
+            ScrollView {
+                VStack {
+                    ForEach(shopViewModel.crateOptions) { crate in
+                        CrateView(crateImage: crate.image,
+                                  crateName: crate.name,
+                                  crateDescription: crate.description,
+                                  cratePrice: crate.price) {
+                            crate.buyAction()
+                        }
+                    }
+                }
+                .padding()
             }
             Text(shopViewModel.message)
+                .padding(.horizontal)
+
             Text(shopViewModel.errorMessage)
+                .foregroundColor(.red)
+                .padding(.horizontal)
         }
-        .onAppear {
-            shopViewModel.authViewModel.getUserCurrency { (currency) in
-                self.shopViewModel.currency = currency
-            }
-        }
+        
     }
 }
-
