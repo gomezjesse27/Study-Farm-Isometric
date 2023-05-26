@@ -18,7 +18,7 @@ class ShopViewModel: ObservableObject {
     let authViewModel = AuthViewModel()
     
     let commonCrateAnimals: [String] = ["Colobus", "Colobus", "Colobus", "Colobus", "Colobus"]
-    let uncommonCrateAnimals: [String] = ["Colobus", "Colobus", "Colobus", "Colobus", "Colobus"]
+    let uncommonCrateAnimals: [String] = ["Sheep", "Sheep", "Sheep", "Sheep", "Sheep"]
     let rareCrateAnimals: [String] = ["Colobus", "Colobus", "Colobus", "Colobus", "Colobus"]
     let superRareCrateAnimals: [String] = ["Colobus", "Colobus", "Colobus", "Colobus", "Colobus"]
     let exceedinglyRareCrateAnimals: [String] = ["Colobus", "Colobus", "Colobus", "Colobus", "Colobus"]

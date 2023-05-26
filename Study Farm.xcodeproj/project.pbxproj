@@ -10,6 +10,11 @@
 		236408212A2090DE000147E6 /* Colobus_Walk.scnanim in Resources */ = {isa = PBXBuildFile; fileRef = 236408202A2090DE000147E6 /* Colobus_Walk.scnanim */; };
 		236408252A209243000147E6 /* Colobus_Clicked.scnanim in Resources */ = {isa = PBXBuildFile; fileRef = 236408242A209243000147E6 /* Colobus_Clicked.scnanim */; };
 		236408272A2092F4000147E6 /* Colobus_Animations.dae in Resources */ = {isa = PBXBuildFile; fileRef = 236408262A2092F4000147E6 /* Colobus_Animations.dae */; };
+		236408372A211E76000147E6 /* T_Sheep.png in Resources */ = {isa = PBXBuildFile; fileRef = 236408362A211E76000147E6 /* T_Sheep.png */; };
+		236408392A211ED2000147E6 /* Sheep_Clicked.scn in Resources */ = {isa = PBXBuildFile; fileRef = 236408382A211ED2000147E6 /* Sheep_Clicked.scn */; };
+		2364083B2A211EDB000147E6 /* Sheep_Walk.scn in Resources */ = {isa = PBXBuildFile; fileRef = 2364083A2A211EDB000147E6 /* Sheep_Walk.scn */; };
+		2364083D2A211EE1000147E6 /* Sheep_Idle_A.scn in Resources */ = {isa = PBXBuildFile; fileRef = 2364083C2A211EE1000147E6 /* Sheep_Idle_A.scn */; };
+		236408432A2144A3000147E6 /* FriendsFarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236408422A2144A2000147E6 /* FriendsFarmView.swift */; };
 		238334E32A1C1A4300319E7A /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E22A1C1A4300319E7A /* Grid.swift */; };
 		238334E52A1C226400319E7A /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E42A1C226400319E7A /* StateMachine.swift */; };
 		238334E72A1C228900319E7A /* MovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E62A1C228900319E7A /* MovementController.swift */; };
@@ -93,6 +98,19 @@
 		236408202A2090DE000147E6 /* Colobus_Walk.scnanim */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Walk.scnanim; path = ../../../Colobus_Walk.scnanim; sourceTree = "<group>"; };
 		236408242A209243000147E6 /* Colobus_Clicked.scnanim */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Clicked.scnanim; path = ../../../Colobus_Clicked.scnanim; sourceTree = "<group>"; };
 		236408262A2092F4000147E6 /* Colobus_Animations.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Colobus_Animations.dae; path = ../../../Colobus_Animations.dae; sourceTree = "<group>"; };
+		236408362A211E76000147E6 /* T_Sheep.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = T_Sheep.png; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/Textures/T_Sheep.png"; sourceTree = "<group>"; };
+		236408382A211ED2000147E6 /* Sheep_Clicked.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Clicked.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Clicked.scn"; sourceTree = "<group>"; };
+		2364083A2A211EDB000147E6 /* Sheep_Walk.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Walk.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Walk.scn"; sourceTree = "<group>"; };
+		2364083C2A211EE1000147E6 /* Sheep_Idle_A.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Idle_A.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Idle_A.scn"; sourceTree = "<group>"; };
+		236408422A2144A2000147E6 /* FriendsFarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFarmView.swift; sourceTree = "<group>"; };
+		236408472A216D3B000147E6 /* MSGradientCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MSGradientCircularSlider+IB.swift"; sourceTree = "<group>"; };
+		236408482A216D3B000147E6 /* MSDoubleHandleCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MSDoubleHandleCircularSlider+IB.swift"; sourceTree = "<group>"; };
+		236408492A216D3B000147E6 /* MSDoubleHandleCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDoubleHandleCircularSlider.swift; sourceTree = "<group>"; };
+		2364084A2A216D3B000147E6 /* MSCircularSliderAnimationLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCircularSliderAnimationLayer.swift; sourceTree = "<group>"; };
+		2364084B2A216D3B000147E6 /* MSCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MSCircularSlider+IB.swift"; sourceTree = "<group>"; };
+		2364084C2A216D3B000147E6 /* MSCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCircularSlider.swift; sourceTree = "<group>"; };
+		2364084D2A216D3B000147E6 /* MSGradientCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGradientCircularSlider.swift; sourceTree = "<group>"; };
+		2364084E2A216D3B000147E6 /* MSCircularSliderHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCircularSliderHandle.swift; sourceTree = "<group>"; };
 		238334E22A1C1A4300319E7A /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		238334E42A1C226400319E7A /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		238334E62A1C228900319E7A /* MovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementController.swift; sourceTree = "<group>"; };
@@ -162,6 +180,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		236408462A216D3B000147E6 /* MSCircularSlider */ = {
+			isa = PBXGroup;
+			children = (
+				236408472A216D3B000147E6 /* MSGradientCircularSlider+IB.swift */,
+				236408482A216D3B000147E6 /* MSDoubleHandleCircularSlider+IB.swift */,
+				236408492A216D3B000147E6 /* MSDoubleHandleCircularSlider.swift */,
+				2364084A2A216D3B000147E6 /* MSCircularSliderAnimationLayer.swift */,
+				2364084B2A216D3B000147E6 /* MSCircularSlider+IB.swift */,
+				2364084C2A216D3B000147E6 /* MSCircularSlider.swift */,
+				2364084D2A216D3B000147E6 /* MSGradientCircularSlider.swift */,
+				2364084E2A216D3B000147E6 /* MSCircularSliderHandle.swift */,
+			);
+			path = MSCircularSlider;
+			sourceTree = "<group>";
+		};
 		23D5790F2A17F9840055C693 = {
 			isa = PBXGroup;
 			children = (
@@ -194,6 +227,7 @@
 				23E9FB7B2A1ACDCC002AB389 /* TimerView.swift */,
 				23E9FB832A1ACE99002AB389 /* FriendsView.swift */,
 				23E9FB732A199999002AB389 /* FarmView.swift */,
+				236408422A2144A2000147E6 /* FriendsFarmView.swift */,
 				23E9FB902A1B150C002AB389 /* ShopView.swift */,
 				23E9FB772A1AAD4B002AB389 /* ProfileView.swift */,
 				23E9FB5E2A195596002AB389 /* AuthViewModel.swift */,
@@ -211,6 +245,10 @@
 				238334F02A1C8FF700319E7A /* Colobus_LOD3.scn */,
 				238334F22A1C900800319E7A /* Colobus_Idle_A.scn */,
 				238334F42A1C901A00319E7A /* Colobus_Clicked.scn */,
+				236408382A211ED2000147E6 /* Sheep_Clicked.scn */,
+				2364083A2A211EDB000147E6 /* Sheep_Walk.scn */,
+				2364083C2A211EE1000147E6 /* Sheep_Idle_A.scn */,
+				236408362A211E76000147E6 /* T_Sheep.png */,
 				236408262A2092F4000147E6 /* Colobus_Animations.dae */,
 				236408242A209243000147E6 /* Colobus_Clicked.scnanim */,
 				238334FA2A1D469F00319E7A /* crate.png */,
@@ -218,6 +256,7 @@
 				238334E82A1C412700319E7A /* Cow_LOD3.dae */,
 				238334EA2A1C495B00319E7A /* Cow_LOD3.scn */,
 				23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */,
+				236408462A216D3B000147E6 /* MSCircularSlider */,
 				23D579212A17F9860055C693 /* Preview Content */,
 			);
 			path = "Study Farm";
@@ -375,13 +414,17 @@
 			files = (
 				236408272A2092F4000147E6 /* Colobus_Animations.dae in Resources */,
 				238334F32A1C900800319E7A /* Colobus_Idle_A.scn in Resources */,
+				2364083B2A211EDB000147E6 /* Sheep_Walk.scn in Resources */,
 				238334F12A1C8FF700319E7A /* Colobus_LOD3.scn in Resources */,
 				23D579232A17F9860055C693 /* Preview Assets.xcassets in Resources */,
 				236408212A2090DE000147E6 /* Colobus_Walk.scnanim in Resources */,
+				2364083D2A211EE1000147E6 /* Sheep_Idle_A.scn in Resources */,
 				238334FB2A1D469F00319E7A /* crate.png in Resources */,
 				23E9FB8D2A1AFF90002AB389 /* GoogleService-Info.plist in Resources */,
 				238334ED2A1C878000319E7A /* Cow.usdz in Resources */,
+				236408392A211ED2000147E6 /* Sheep_Clicked.scn in Resources */,
 				238334F52A1C901A00319E7A /* Colobus_Clicked.scn in Resources */,
+				236408372A211E76000147E6 /* T_Sheep.png in Resources */,
 				23E9FBDE2A1BFE8A002AB389 /* T_Colobus.png in Resources */,
 				23D579202A17F9860055C693 /* Assets.xcassets in Resources */,
 				238334EB2A1C495B00319E7A /* Cow_LOD3.scn in Resources */,
@@ -421,6 +464,7 @@
 				23E9FB952A1B1D0E002AB389 /* Animal.swift in Sources */,
 				238334E72A1C228900319E7A /* MovementController.swift in Sources */,
 				23E9FBA12A1BCA26002AB389 /* ShopViewModel.swift in Sources */,
+				236408432A2144A3000147E6 /* FriendsFarmView.swift in Sources */,
 				23E9FB782A1AAD4B002AB389 /* ProfileView.swift in Sources */,
 				23E9FB7C2A1ACDCC002AB389 /* TimerView.swift in Sources */,
 				23E9FB9D2A1B30BF002AB389 /* AnimalFactory.swift in Sources */,

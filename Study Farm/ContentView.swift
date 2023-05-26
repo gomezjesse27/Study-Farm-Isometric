@@ -17,6 +17,8 @@ struct ContentView: View {
         }
     var body: some View {
         ZStack {
+            Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
+
             Rectangle()
                 .foregroundColor(Color.white)
                 .ignoresSafeArea()

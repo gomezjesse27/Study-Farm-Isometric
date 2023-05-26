@@ -42,7 +42,7 @@ struct ShopView: View {
             Text(shopViewModel.errorMessage)
                 .foregroundColor(.red)
                 .padding(.horizontal)
-        }
+        }.background(Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all))
         
     }
 }

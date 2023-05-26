@@ -16,6 +16,7 @@ class AuthViewModel: ObservableObject {
     @Published var isSignedIn = false
     @Published var errorMessage = ""
     @Published var userAnimals: [Animal] = []
+    @Published var friendAnimals: [Animal] = []
     //@Published var friendRequests: [String] = []
     @Published var friendRequests: [User] = []
     @Published var friends: [User] = []
@@ -192,12 +193,40 @@ class AuthViewModel: ObservableObject {
                     let animalName = document.documentID
                     let count = document.get("count") as? Int ?? 0
                     for _ in 0..<count {
-                        var animal = AnimalFactory.getAnimal(name: animalName, grid: grid)
-                        animals.append(animal)
+                        do {
+                            let animal = try AnimalFactory.getAnimal(name: animalName, grid: grid)
+                            animals.append(animal)
+                        } catch {
+                            print("Error creating animal: \(error)")
+                        }
                     }
                 }
                 DispatchQueue.main.async {
                     self.userAnimals = animals
+                }
+            }
+        }
+    }
+    func getFriendAnimals(for friendID: String, grid: Grid) {
+        db.collection("users").document(friendID).collection("animals").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error reading animals: \(error)")
+            } else {
+                var animals: [Animal] = []
+                for document in querySnapshot!.documents {
+                    let animalName = document.documentID
+                    let count = document.get("count") as? Int ?? 0
+                    for _ in 0..<count {
+                        do {
+                            let animal = try AnimalFactory.getAnimal(name: animalName, grid: grid)
+                            animals.append(animal)
+                        } catch {
+                            print("Error creating animal: \(error)")
+                        }
+                    }
+                }
+                DispatchQueue.main.async {
+                    self.friendAnimals = animals // Assuming you have defined `friendAnimals` somewhere in the class
                 }
             }
         }

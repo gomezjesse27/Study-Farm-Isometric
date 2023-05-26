@@ -21,7 +21,7 @@ class StateMachine {
     
     func transition(toState state: String) {
         guard let animation = states[state] else { return }
-        
+       
         currentNode.removeAllAnimations()
         currentNode.addAnimation(animation, forKey: state)
     }

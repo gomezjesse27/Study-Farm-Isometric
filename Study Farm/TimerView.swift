@@ -6,7 +6,6 @@
 //
 import Foundation
 import SwiftUI
-
 struct TimerView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var secondsRemaining = 7200.0

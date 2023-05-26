@@ -7,24 +7,33 @@
 
 import SwiftUI
 
+
 struct FriendsView: View {
     @State private var searchText = ""
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
     var body: some View {
         NavigationView {
-            List {
-                Section {
-                    SearchBar(text: $searchText, placeholder: "Search friends")
-                }
+            ZStack {
+                Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
                 
-                Section {
-                    ForEach(authViewModel.friends, id: \.id) { friend in
-                        Text(friend.email)
+                VStack { // Extra VStack added here
+                    ScrollView {
+                        VStack {
+                            SearchBar(text: $searchText, placeholder: "Search friends")
+                            
+                            ForEach(authViewModel.friends, id: \.id) { friend in
+                                NavigationLink(destination: FriendsFarmView(friendID: friend.id, friendEmail: friend.email)) {
+                                    Text(friend.email)
+                                }
+                                Divider()  // Adding Divider to mimic List behavior
+                            }
+                            
+                        }
+                        .padding()  // Add padding to mimic List behavior
                     }
                 }
             }
-            .listStyle(InsetGroupedListStyle())
             .navigationTitle("Friends")
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
@@ -45,84 +54,97 @@ struct FriendsView: View {
     }
 }
 
-struct FriendsView_Previews: PreviewProvider {
-    static var previews: some View {
-        FriendsView()
+    struct FriendsView_Previews: PreviewProvider {
+        static var previews: some View {
+            FriendsView()
+        }
     }
-}
-
-struct SearchBar: UIViewRepresentable {
-
-    @Binding var text: String
-    var placeholder: String
-
-    func makeUIView(context: Context) -> UISearchBar {
-        let searchBar = UISearchBar(frame: .zero)
-        searchBar.delegate = context.coordinator
-        searchBar.placeholder = placeholder
-        searchBar.searchBarStyle = .minimal
-        searchBar.autocapitalizationType = .none
-        return searchBar
-    }
-
-    func updateUIView(_ uiView: UISearchBar, context: Context) {
-        uiView.text = text
-    }
-
-    func makeCoordinator() -> SearchBar.Coordinator {
-        return Coordinator(text: $text)
-    }
-
-    class Coordinator: NSObject, UISearchBarDelegate {
-
+    
+    struct SearchBar: UIViewRepresentable {
+        
         @Binding var text: String
-
-        init(text: Binding<String>) {
-            _text = text
+        var placeholder: String
+        
+        func makeUIView(context: Context) -> UISearchBar {
+            let searchBar = UISearchBar(frame: .zero)
+            searchBar.delegate = context.coordinator
+            searchBar.placeholder = placeholder
+            searchBar.searchBarStyle = .minimal
+            searchBar.autocapitalizationType = .none
+            return searchBar
         }
-
-        func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-            text = searchText
+        
+        func updateUIView(_ uiView: UISearchBar, context: Context) {
+            uiView.text = text
+        }
+        
+        func makeCoordinator() -> SearchBar.Coordinator {
+            return Coordinator(text: $text)
+        }
+        
+        class Coordinator: NSObject, UISearchBarDelegate {
+            
+            @Binding var text: String
+            
+            init(text: Binding<String>) {
+                _text = text
+            }
+            
+            func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+                text = searchText
+            }
         }
     }
-}
-
+    
 struct AddFriendView: View {
     @State private var email = ""
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
     var body: some View {
-        Form {
-            Section(header: Text("Friend's Email")) {
-                TextField("Email", text: $email)
-                    .keyboardType(.emailAddress)
-                    .autocapitalization(.none)
-                    .disableAutocorrection(true)
-            }
-
-            Section {
-                Button(action: {
-                    // Search for friend with email and send friend request
-                    
-                    authViewModel.sendFriendRequest(toEmail: email)
-                }) {
-                    Text("Send Friend Request")
+        ZStack {
+            Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
+            
+            VStack {
+                Section(header: Text("Friend's Email")) {
+                    TextField("Email", text: $email)
+                        .keyboardType(.emailAddress)
+                        .autocapitalization(.none)
+                        .disableAutocorrection(true)
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(8)
+                }
+                
+                Section {
+                    Button(action: {
+                        // Search for friend with email and send friend request
+                        authViewModel.sendFriendRequest(toEmail: email)
+                    }) {
+                        Text("Send Friend Request")
+                    }
+                    .padding()
+                    .background(Color.white)
+                    .cornerRadius(8)
                 }
             }
+            .padding()
         }
         .navigationTitle("Add Friend")
     }
 }
-
-
-
+    
+    
+    
 struct FriendRequestsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
     var body: some View {
-            List {
-                Section(header: Text("Friend Requests")) {
+        ZStack {
+            Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
+            
+            ScrollView {
+                VStack {
                     ForEach(authViewModel.friendRequests) { friendRequest in
                         HStack {
                             Text(friendRequest.email) // Display the friend request ID here
@@ -140,21 +162,19 @@ struct FriendRequestsView: View {
                                 Text("Decline")
                             }
                         }
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(8)
+                        Divider()  // Adding Divider to mimic List behavior
                     }
-                }
-            }
-            .onAppear {
-                authViewModel.fetchFriendRequests()
-            }
-            .navigationTitle("Friend Requests")
-            .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button(action: {
-                        presentationMode.wrappedValue.dismiss()
-                    }) {
-                        Image(systemName: "arrow.backward")
-                    }
+                    .padding()  // Add padding to mimic List behavior
                 }
             }
         }
+        .onAppear {
+            authViewModel.fetchFriendRequests()
+        }
+        .navigationTitle("Friend Requests")
     }
+}
+
