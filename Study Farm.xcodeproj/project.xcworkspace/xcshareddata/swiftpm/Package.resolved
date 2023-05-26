@@ -1,6 +1,15 @@
 {
   "pins" : [
     {
+      "identity" : "aachartkit-swift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/AAChartModel/AAChartKit-Swift.git",
+      "state" : {
+        "revision" : "78bb437d4fe667457b4885105a92de34e099c0c1",
+        "version" : "7.3.0"
+      }
+    },
+    {
       "identity" : "abseil-cpp-swiftpm",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/firebase/abseil-cpp-SwiftPM.git",
@@ -115,6 +124,15 @@
       "state" : {
         "revision" : "0af9125c4eae12a4973fb66574c53a54962a9e1e",
         "version" : "1.21.0"
+      }
+    },
+    {
+      "identity" : "swiftcharts",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/ivanschuetz/SwiftCharts",
+      "state" : {
+        "branch" : "master",
+        "revision" : "c354c1945bb35a1f01b665b22474f6db28cba4a2"
       }
     }
   ],

@@ -1,59 +1,60 @@
-//
-//  ProfileView.swift
-//  Study Farm
-//
-//  Created by Jaysen Gomez on 5/21/23.
-//
-
 import SwiftUI
-import SwiftUICharts
+import Firebase
+import AAInfographics
 
+struct AAChartKitView: UIViewRepresentable {
+    var chartModel: AAChartModel
+
+    func makeUIView(context: Context) -> AAChartView {
+        let chartView = AAChartView()
+        chartView.aa_drawChartWithChartModel(chartModel)
+        chartView.isClearBackgroundColor = true // Try making the chart background clear
+        return chartView
+    }
+
+    func updateUIView(_ uiView: AAChartView, context: Context) {
+        // Redraw chart with current data
+        uiView.aa_refreshChartWholeContentWithChartModel(chartModel)
+    }
+}
 struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-    @State private var studySessionData: [ChartDataPoint] = []
-    @State private var subjectData: [ChartDataPoint] = []
-    @State private var selectedTimeRange = TimeRange.today
-    let timeRanges = TimeRange.allCases
-    
-    let colors: [Color] = [.red, .blue, .green, .orange, .purple, .pink]  // Add more if needed
+
+    @State private var selectedInterval = Interval.day
+    @State private var aaChartModel: AAChartModel?
 
     var body: some View {
         ScrollView {
-            VStack {
-                Text("Select Time Range")
-                    .font(.title2)
-                Picker("Select Time Range", selection: $selectedTimeRange) {
-                    ForEach(timeRanges, id: \.self) {
-                        Text($0.rawValue.capitalized)
-                    }
-                }
-                .pickerStyle(.segmented)
-                .padding()
-
-                Text("Study Session Duration")
-                    .font(.title2)
-                LineChartView(data: studySessionData.map { $0.value }, title: "Study Session Duration", legend: "Daily Duration")
-                    .padding()
-
-                Text("Subject Distribution")
-                    .font(.title2)
-                PieChartView(data: subjectData.map { $0.value }, title: "Subject Distribution", legend: "Subject Hours")
-                    .padding()
-
-                // Legend
-                VStack(alignment: .leading) {
-                    ForEach(0..<subjectData.count) { index in
-                        HStack {
-                            Circle()
-                                .fill(colors[index % colors.count])
-                                .frame(width: 10, height: 10)
-                            Text(subjectData[index].label)
-                        }
-                    }
+            VStack(alignment: .leading) {
+                HStack {
+                    Image(systemName: "person.crop.circle")
+                        .resizable()
+                        .frame(width: 100, height: 100)
+                        .clipShape(Circle())
                 }
                 .padding()
+                .background(Color.pastelGreen)
 
-                // Your existing sign-out button code...
+                // Interval Picker
+                Picker("Select Interval", selection: $selectedInterval) {
+                    Text("Day").tag(Interval.day)
+                    Text("Week").tag(Interval.week)
+                    Text("Month").tag(Interval.month)
+                    Text("Year").tag(Interval.year)
+                }
+                .pickerStyle(SegmentedPickerStyle())
+
+                // Bar chart
+                if let chartModel = self.aaChartModel {
+                    AAChartKitView(chartModel: chartModel)
+                        .frame(height: 300)  // Specify a frame height for the chart view
+                        .background(Color.pastelGreen)
+                } else {
+                    Text("No data available")
+                }
+
+                Spacer()
+
                 Button(action: {
                     authViewModel.signOut()
                 }) {
@@ -65,22 +66,34 @@ struct ProfileView: View {
                         .cornerRadius(15)
                 }
             }
-            .onAppear {
-                loadStudyData()
-            }
-            .onChange(of: selectedTimeRange) { newValue in
-                loadStudyData()
-            }
+            .padding()
         }
-    }
-
-    private func loadStudyData() {
-        authViewModel.getStudySessionData(timeRange: selectedTimeRange) { data in
-            studySessionData = data
-        }
-        authViewModel.getSubjectData(timeRange: selectedTimeRange) { data in
-            subjectData = data
+        .background(Color.pastelGreen.edgesIgnoringSafeArea(.all)) // Apply the pastel green to the entire ScrollView
+        .onAppear {
+            authViewModel.getStudySessionData(interval: selectedInterval) { sessions in
+                // map sessions to AAChartModel
+                let chartData = sessions.map { Double($0.value) }
+                let chartCategories = sessions.map { $0.key }
+                self.aaChartModel = AAChartModel()
+                    .chartType(.column)
+                    .animationType(.easeOutBack)
+                    .title("Study Sessions")
+                    .subtitle("Duration of study sessions")
+                    .dataLabelsEnabled(true)
+                    .tooltipValueSuffix(" minutes")
+                    .categories(chartCategories)
+                    .backgroundColor("#CAECD9") // Set chart background to pastel green (Hex color)
+                    .series([
+                        AASeriesElement()
+                            .name("Study Duration")
+                            .data(chartData)
+                            .toDic()!
+                    ])
+            }
         }
     }
 }
 
+extension Color {
+    static let pastelGreen = Color(red: 202 / 255, green: 220 / 255, blue: 157 / 255)
+}

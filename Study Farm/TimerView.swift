@@ -85,6 +85,7 @@ struct TimerView: View {
                     self.secondsRemaining = self.totalStudyTime
                     calculateBucks()
                     authViewModel.saveUserCurrency(farmBucks) // Saving currency only when timer stops
+                    authViewModel.saveStudySessionData(duration: Int(totalStudyTime), date: Date()) // Save study session data
                 }
             }
             .onAppear {

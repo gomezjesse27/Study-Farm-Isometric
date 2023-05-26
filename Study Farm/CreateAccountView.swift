@@ -14,6 +14,7 @@ struct CreateAccountView: View {
 
     var body: some View {
         VStack {
+            
             TextField("Email", text: $email)
                 .padding()
                 .foregroundColor(.black)

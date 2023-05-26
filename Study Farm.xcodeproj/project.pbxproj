@@ -19,8 +19,8 @@
 		238334F52A1C901A00319E7A /* Colobus_Clicked.scn in Resources */ = {isa = PBXBuildFile; fileRef = 238334F42A1C901A00319E7A /* Colobus_Clicked.scn */; };
 		238334F72A1D314000319E7A /* CrateView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334F62A1D314000319E7A /* CrateView.swift */; };
 		238334FB2A1D469F00319E7A /* crate.png in Resources */ = {isa = PBXBuildFile; fileRef = 238334FA2A1D469F00319E7A /* crate.png */; };
-		238334FF2A1D4D2C00319E7A /* SubjectsListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334FE2A1D4D2C00319E7A /* SubjectsListView.swift */; };
 		238335022A1D506300319E7A /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 238335012A1D506300319E7A /* SwiftUICharts */; };
+		238335102A20011A00319E7A /* AAInfographics in Frameworks */ = {isa = PBXBuildFile; productRef = 2383350F2A20011A00319E7A /* AAInfographics */; };
 		23D5791C2A17F9840055C693 /* Study_FarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5791B2A17F9840055C693 /* Study_FarmApp.swift */; };
 		23D5791E2A17F9840055C693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5791D2A17F9840055C693 /* ContentView.swift */; };
 		23D579202A17F9860055C693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23D5791F2A17F9860055C693 /* Assets.xcassets */; };
@@ -28,7 +28,6 @@
 		23D5792D2A17F9870055C693 /* Study_FarmTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5792C2A17F9870055C693 /* Study_FarmTests.swift */; };
 		23D579372A17F9870055C693 /* Study_FarmUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D579362A17F9870055C693 /* Study_FarmUITests.swift */; };
 		23D579392A17F9870055C693 /* Study_FarmUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D579382A17F9870055C693 /* Study_FarmUITestsLaunchTests.swift */; };
-		23D579522A17FE050055C693 /* StudySession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D579512A17FE050055C693 /* StudySession.swift */; };
 		23E9FB5D2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 23E9FB5C2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		23E9FB5F2A195596002AB389 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB5E2A195596002AB389 /* AuthViewModel.swift */; };
 		23E9FB602A195596002AB389 /* AuthViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23E9FB5E2A195596002AB389 /* AuthViewModel.swift */; };
@@ -100,7 +99,6 @@
 		238334F42A1C901A00319E7A /* Colobus_Clicked.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Clicked.scn; path = ../../../Colobus_Clicked.scn; sourceTree = "<group>"; };
 		238334F62A1D314000319E7A /* CrateView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CrateView.swift; sourceTree = "<group>"; };
 		238334FA2A1D469F00319E7A /* crate.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = crate.png; path = ../../../crate.png; sourceTree = "<group>"; };
-		238334FE2A1D4D2C00319E7A /* SubjectsListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubjectsListView.swift; sourceTree = "<group>"; };
 		23D579182A17F9840055C693 /* Study Farm.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Study Farm.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D5791B2A17F9840055C693 /* Study_FarmApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study_FarmApp.swift; sourceTree = "<group>"; };
 		23D5791D2A17F9840055C693 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -111,7 +109,6 @@
 		23D579322A17F9870055C693 /* Study FarmUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Study FarmUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		23D579362A17F9870055C693 /* Study_FarmUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study_FarmUITests.swift; sourceTree = "<group>"; };
 		23D579382A17F9870055C693 /* Study_FarmUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Study_FarmUITestsLaunchTests.swift; sourceTree = "<group>"; };
-		23D579512A17FE050055C693 /* StudySession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudySession.swift; sourceTree = "<group>"; };
 		23E9FB5E2A195596002AB389 /* AuthViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewModel.swift; sourceTree = "<group>"; };
 		23E9FB672A195A03002AB389 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		23E9FB692A195B15002AB389 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +133,7 @@
 			files = (
 				23E9FB5D2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				238335022A1D506300319E7A /* SwiftUICharts in Frameworks */,
+				238335102A20011A00319E7A /* AAInfographics in Frameworks */,
 				23E9FB642A1959A3002AB389 /* FirebaseAuth in Frameworks */,
 				23E9FB662A1959A3002AB389 /* FirebaseFirestore in Frameworks */,
 			);
@@ -182,27 +180,25 @@
 		23D5791A2A17F9840055C693 /* Study Farm */ = {
 			isa = PBXGroup;
 			children = (
-				23E9FB5E2A195596002AB389 /* AuthViewModel.swift */,
-				238334FE2A1D4D2C00319E7A /* SubjectsListView.swift */,
-				238334E22A1C1A4300319E7A /* Grid.swift */,
+				23E9FB692A195B15002AB389 /* AppDelegate.swift */,
+				23D5791B2A17F9840055C693 /* Study_FarmApp.swift */,
 				23E9FB672A195A03002AB389 /* LoginView.swift */,
 				23E9FB6B2A195FBD002AB389 /* CreateAccountView.swift */,
+				23D5791D2A17F9840055C693 /* ContentView.swift */,
+				23E9FB7B2A1ACDCC002AB389 /* TimerView.swift */,
+				23E9FB832A1ACE99002AB389 /* FriendsView.swift */,
+				23E9FB732A199999002AB389 /* FarmView.swift */,
 				23E9FB902A1B150C002AB389 /* ShopView.swift */,
+				23E9FB772A1AAD4B002AB389 /* ProfileView.swift */,
+				23E9FB5E2A195596002AB389 /* AuthViewModel.swift */,
+				238334E22A1C1A4300319E7A /* Grid.swift */,
 				23E9FBA02A1BCA26002AB389 /* ShopViewModel.swift */,
 				238334F62A1D314000319E7A /* CrateView.swift */,
-				23D5791B2A17F9840055C693 /* Study_FarmApp.swift */,
 				23E9FB942A1B1D0E002AB389 /* Animal.swift */,
 				238334E42A1C226400319E7A /* StateMachine.swift */,
 				238334E62A1C228900319E7A /* MovementController.swift */,
 				23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */,
-				23E9FB732A199999002AB389 /* FarmView.swift */,
-				23D579512A17FE050055C693 /* StudySession.swift */,
-				23D5791D2A17F9840055C693 /* ContentView.swift */,
-				23E9FB7B2A1ACDCC002AB389 /* TimerView.swift */,
-				23E9FB772A1AAD4B002AB389 /* ProfileView.swift */,
 				23E9FB8C2A1AFF90002AB389 /* GoogleService-Info.plist */,
-				23E9FB832A1ACE99002AB389 /* FriendsView.swift */,
-				23E9FB692A195B15002AB389 /* AppDelegate.swift */,
 				23D5791F2A17F9860055C693 /* Assets.xcassets */,
 				238334EE2A1C8FE300319E7A /* Colobus_Walk.scn */,
 				238334F02A1C8FF700319E7A /* Colobus_LOD3.scn */,
@@ -272,6 +268,7 @@
 				23E9FB632A1959A3002AB389 /* FirebaseAuth */,
 				23E9FB652A1959A3002AB389 /* FirebaseFirestore */,
 				238335012A1D506300319E7A /* SwiftUICharts */,
+				2383350F2A20011A00319E7A /* AAInfographics */,
 			);
 			productName = "Study Farm";
 			productReference = 23D579182A17F9840055C693 /* Study Farm.app */;
@@ -348,6 +345,8 @@
 			packageReferences = (
 				23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */,
+				2383350B2A1FFF2200319E7A /* XCRemoteSwiftPackageReference "SwiftCharts" */,
+				2383350E2A20011A00319E7A /* XCRemoteSwiftPackageReference "AAChartKit-Swift" */,
 			);
 			productRefGroup = 23D579192A17F9840055C693 /* Products */;
 			projectDirPath = "";
@@ -407,9 +406,7 @@
 			files = (
 				23E9FB6C2A195FBD002AB389 /* CreateAccountView.swift in Sources */,
 				23E9FB742A199999002AB389 /* FarmView.swift in Sources */,
-				23D579522A17FE050055C693 /* StudySession.swift in Sources */,
 				23E9FB952A1B1D0E002AB389 /* Animal.swift in Sources */,
-				238334FF2A1D4D2C00319E7A /* SubjectsListView.swift in Sources */,
 				238334E72A1C228900319E7A /* MovementController.swift in Sources */,
 				23E9FBA12A1BCA26002AB389 /* ShopViewModel.swift in Sources */,
 				23E9FB782A1AAD4B002AB389 /* ProfileView.swift in Sources */,
@@ -781,6 +778,22 @@
 				version = 1.5.5;
 			};
 		};
+		2383350B2A1FFF2200319E7A /* XCRemoteSwiftPackageReference "SwiftCharts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ivanschuetz/SwiftCharts";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
+		2383350E2A20011A00319E7A /* XCRemoteSwiftPackageReference "AAChartKit-Swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AAChartModel/AAChartKit-Swift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 7.0.0;
+			};
+		};
 		23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -796,6 +809,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */;
 			productName = SwiftUICharts;
+		};
+		2383350F2A20011A00319E7A /* AAInfographics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 2383350E2A20011A00319E7A /* XCRemoteSwiftPackageReference "AAChartKit-Swift" */;
+			productName = AAInfographics;
 		};
 		23E9FB5C2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;
