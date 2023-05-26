@@ -35,35 +35,39 @@ class Animal:Equatable {
            // and so on for each property you consider makes an animal unique...
        }
         
-        func setupStateMachine() {
-            var animationStates: [String: SCNAnimation] = [:]  // use SCNAnimation here
-            for animationName in animations {
-                if let animationScene = SCNScene(named: animationName),
-                   let animationNode = animationScene.rootNode.childNodes.first,
-                   let animationKey = animationNode.animationKeys.first {
-                    
-                    if let animationPlayer = animationNode.animationPlayer(forKey: animationKey),
-                       let animation = animationPlayer.animation as? SCNAnimation {
-                        animationStates[animationKey] = animation  // use SCNAnimation here
-                        
-                        if animationKey.contains("_Idle") {
-                            idleAnimation = animationKey
-                        } else if animationKey.contains("_Walk") {
-                            walkAnimation = animationKey
-                        }
-                    } else {
-                        print("Failed to load \(self.name) animation from \(animationName)")
-                    }
+    func setupStateMachine() {
+        print("setupstatemachine")
+        var animationStates: [String: SCNAnimation] = [:]
+
+        for animationName in animations {
+            if let animationScene = SCNScene(named: animationName),
+               let animationNode = animationScene.rootNode.childNodes.first,
+               let animationKey = animationNode.animationKeys.first {
+                print("Loading animation: \(animationKey)") // Print debug info
+                if let animationPlayer = animationNode.animationPlayer(forKey: animationKey),
+                   let animation = animationPlayer.animation as? SCNAnimation {
+                    animationStates[animationKey] = animation
+                } else {
+                    print("Failed to load \(self.name) animation from \(animationName)")
                 }
-            }
-            
-            if let node = self.node {
-                self.stateMachine = StateMachine(node: node, states: animationStates)
             }
         }
         
+        // Directly assign the idle and walk animations
+        self.idleAnimation = "\(self.name)_Idle_A"
+        self.walkAnimation = "\(self.name)_Walk"
+        
+        if let node = self.node {
+            self.stateMachine = StateMachine(node: node, states: animationStates)
+        }
+    }
+    func startMoving() {
+        print("startmoving()")
+            movementController?.start()
+        }
         
         func setupMovementController(grid: Grid) {
+            print("setupmovecontrol")
             if let node = self.node, let stateMachine = self.stateMachine,
                let idleAnimation = self.idleAnimation, let walkAnimation = self.walkAnimation {
                 self.movementController = MovementController(node: node, grid: grid, stateMachine: stateMachine, idleAnimation: idleAnimation, walkAnimation: walkAnimation)

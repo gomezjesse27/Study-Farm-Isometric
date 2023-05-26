@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		236408212A2090DE000147E6 /* Colobus_Walk.scnanim in Resources */ = {isa = PBXBuildFile; fileRef = 236408202A2090DE000147E6 /* Colobus_Walk.scnanim */; };
+		236408252A209243000147E6 /* Colobus_Clicked.scnanim in Resources */ = {isa = PBXBuildFile; fileRef = 236408242A209243000147E6 /* Colobus_Clicked.scnanim */; };
+		236408272A2092F4000147E6 /* Colobus_Animations.dae in Resources */ = {isa = PBXBuildFile; fileRef = 236408262A2092F4000147E6 /* Colobus_Animations.dae */; };
 		238334E32A1C1A4300319E7A /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E22A1C1A4300319E7A /* Grid.swift */; };
 		238334E52A1C226400319E7A /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E42A1C226400319E7A /* StateMachine.swift */; };
 		238334E72A1C228900319E7A /* MovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E62A1C228900319E7A /* MovementController.swift */; };
@@ -87,6 +90,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		236408202A2090DE000147E6 /* Colobus_Walk.scnanim */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Walk.scnanim; path = ../../../Colobus_Walk.scnanim; sourceTree = "<group>"; };
+		236408242A209243000147E6 /* Colobus_Clicked.scnanim */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Colobus_Clicked.scnanim; path = ../../../Colobus_Clicked.scnanim; sourceTree = "<group>"; };
+		236408262A2092F4000147E6 /* Colobus_Animations.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Colobus_Animations.dae; path = ../../../Colobus_Animations.dae; sourceTree = "<group>"; };
 		238334E22A1C1A4300319E7A /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		238334E42A1C226400319E7A /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		238334E62A1C228900319E7A /* MovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementController.swift; sourceTree = "<group>"; };
@@ -200,10 +206,13 @@
 				23E9FB9C2A1B30BF002AB389 /* AnimalFactory.swift */,
 				23E9FB8C2A1AFF90002AB389 /* GoogleService-Info.plist */,
 				23D5791F2A17F9860055C693 /* Assets.xcassets */,
+				236408202A2090DE000147E6 /* Colobus_Walk.scnanim */,
 				238334EE2A1C8FE300319E7A /* Colobus_Walk.scn */,
 				238334F02A1C8FF700319E7A /* Colobus_LOD3.scn */,
 				238334F22A1C900800319E7A /* Colobus_Idle_A.scn */,
 				238334F42A1C901A00319E7A /* Colobus_Clicked.scn */,
+				236408262A2092F4000147E6 /* Colobus_Animations.dae */,
+				236408242A209243000147E6 /* Colobus_Clicked.scnanim */,
 				238334FA2A1D469F00319E7A /* crate.png */,
 				238334EC2A1C878000319E7A /* Cow.usdz */,
 				238334E82A1C412700319E7A /* Cow_LOD3.dae */,
@@ -364,9 +373,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				236408272A2092F4000147E6 /* Colobus_Animations.dae in Resources */,
 				238334F32A1C900800319E7A /* Colobus_Idle_A.scn in Resources */,
 				238334F12A1C8FF700319E7A /* Colobus_LOD3.scn in Resources */,
 				23D579232A17F9860055C693 /* Preview Assets.xcassets in Resources */,
+				236408212A2090DE000147E6 /* Colobus_Walk.scnanim in Resources */,
 				238334FB2A1D469F00319E7A /* crate.png in Resources */,
 				23E9FB8D2A1AFF90002AB389 /* GoogleService-Info.plist in Resources */,
 				238334ED2A1C878000319E7A /* Cow.usdz in Resources */,
@@ -374,6 +385,7 @@
 				23E9FBDE2A1BFE8A002AB389 /* T_Colobus.png in Resources */,
 				23D579202A17F9860055C693 /* Assets.xcassets in Resources */,
 				238334EB2A1C495B00319E7A /* Cow_LOD3.scn in Resources */,
+				236408252A209243000147E6 /* Colobus_Clicked.scnanim in Resources */,
 				238334E92A1C412800319E7A /* Cow_LOD3.dae in Resources */,
 				238334EF2A1C8FE300319E7A /* Colobus_Walk.scn in Resources */,
 			);

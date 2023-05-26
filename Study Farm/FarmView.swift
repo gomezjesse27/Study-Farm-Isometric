@@ -96,36 +96,39 @@ struct FarmView: View {
         }
     }
     func addAnimals() {
-        scene.rootNode.enumerateChildNodes { node, stop in
-            if node.name == "animal" {
-                node.removeFromParentNode()
-            }
-        }
-            
-        authViewModel.getUserAnimals(grid: grid)
-        for animal in authViewModel.userAnimals {
-            if let animalNode = animal.node {
-                animalNode.name = "animal"
-                if let freeCell = grid.randomFreeCell() {
-                    grid.occupyCell(x: freeCell.x, y: freeCell.y)
-                    let worldCoordinates = grid.gridToWorld(x: freeCell.x, y: freeCell.y)
-
-                    // calculate the height of the model
-                    let (min, max) = animalNode.boundingBox
-                    let height = max.y - min.y
-
-                    // adjust the y position of the model
-                    animalNode.position = SCNVector3(worldCoordinates.x, height / 2, worldCoordinates.y)
-                    scene.rootNode.addChildNode(animalNode)
-                } else {
-                    // Handle the case where there are no free cells
-                    print("No free cells remaining")
+            scene.rootNode.enumerateChildNodes { node, stop in
+                if node.name == "animal" {
+                    node.removeFromParentNode()
                 }
             }
-        }
-    
-   
-        
+
+            authViewModel.getUserAnimals(grid: grid)
+            for animal in authViewModel.userAnimals {
+                if let animalNode = animal.node {
+                    animalNode.name = "animal"
+                    if let freeCell = grid.randomFreeCell() {
+                        grid.occupyCell(x: freeCell.x, y: freeCell.y)
+                        let worldCoordinates = grid.gridToWorld(x: freeCell.x, y: freeCell.y)
+
+                        // calculate the height of the model
+                        let (min, max) = animalNode.boundingBox
+                        let height = max.y - min.y
+
+                        // adjust the y position of the model
+                        animalNode.position = SCNVector3(worldCoordinates.x, height / 2, worldCoordinates.y)
+                        scene.rootNode.addChildNode(animalNode)
+
+                        // Start moving the animal
+                        
+                        animal.setupStateMachine() // make sure to setup state machine for the animal
+                        animal.setupMovementController(grid: grid) // make sure the grid is set before starting movement
+                        animal.startMoving()
+                    } else {
+                        // Handle the case where there are no free cells
+                        print("No free cells remaining")
+                    }
+                }
+            }
         }
 }
 extension Int {
