@@ -16,6 +16,7 @@ struct CrateView: View {
 
     var body: some View {
         VStack(alignment: .leading) {
+            
             Image(crateImage) // Assumes image is available in assets
                 .resizable()
                 .scaledToFit()

@@ -14,6 +14,7 @@ struct ShopView: View {
 
     var body: some View {
         VStack {
+            
             Text("Shop")
                 .font(.largeTitle)
                 .bold()
@@ -33,6 +34,7 @@ struct ShopView: View {
                             crate.buyAction()
                         }
                     }
+                    
                 }
                 .padding()
             }

@@ -15,23 +15,13 @@ struct FriendsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
+                Image("TimerViewBG") // Replace this with your background image name
+                    .resizable()
+                    .edgesIgnoringSafeArea(.all)
                 
                 VStack { // Extra VStack added here
-                    ScrollView {
-                        VStack {
-                            SearchBar(text: $searchText, placeholder: "Search friends")
-                            
-                            ForEach(authViewModel.friends, id: \.id) { friend in
-                                NavigationLink(destination: FriendsFarmView(friendID: friend.id, friendEmail: friend.email)) {
-                                    Text(friend.email)
-                                }
-                                Divider()  // Adding Divider to mimic List behavior
-                            }
-                            
-                        }
-                        .padding()  // Add padding to mimic List behavior
-                    }
+                    SearchBar(text: $searchText, placeholder: "Search friends")
+                    FriendsListView() // Use the new FriendsListView here
                 }
             }
             .navigationTitle("Friends")
@@ -51,8 +41,28 @@ struct FriendsView: View {
                 authViewModel.fetchFriends()
             }
         }
+        .background(Color.clear)
+        .edgesIgnoringSafeArea(.all)
     }
 }
+struct FriendsListView: View {
+    @EnvironmentObject var authViewModel: AuthViewModel
+
+    var body: some View {
+        ScrollView {
+            VStack {
+                ForEach(authViewModel.friends, id: \.id) { friend in
+                    NavigationLink(destination: FriendsFarmView(friendID: friend.id, friendEmail: friend.email)) {
+                        Text(friend.email)
+                    }
+                    Divider()  // Adding Divider to mimic List behavior
+                }
+            }
+            .padding()  // Add padding to mimic List behavior
+        }
+    }
+}
+
 
     struct FriendsView_Previews: PreviewProvider {
         static var previews: some View {
@@ -102,7 +112,10 @@ struct AddFriendView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
+            Image("TimerViewBG") // Replace this with your background image name
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
+            
             
             VStack {
                 Section(header: Text("Friend's Email")) {
@@ -128,6 +141,7 @@ struct AddFriendView: View {
                 }
             }
             .padding()
+           
         }
         .navigationTitle("Add Friend")
     }
@@ -141,7 +155,9 @@ struct FriendRequestsView: View {
     
     var body: some View {
         ZStack {
-            Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
+            Image("TimerViewBG") // Replace this with your background image name
+                .resizable()
+                .edgesIgnoringSafeArea(.all)
             
             ScrollView {
                 VStack {

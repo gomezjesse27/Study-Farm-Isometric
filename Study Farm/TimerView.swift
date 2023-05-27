@@ -13,12 +13,15 @@ struct TimerView: View {
     @State private var farmBucks = 0
     @State private var totalStudyTime = 0.0
     let timer = Timer.publish(every: 1, on: .main, in: .common).autoconnect()
+    
 
     var body: some View {
         ZStack {
-            Image("TimerViewBG") // Replace this with your background image name
+            Color(red: 188/255, green: 224/255, blue: 247/255)
+                    .edgesIgnoringSafeArea(.all)
+            /*Image("TimerViewBG") // Replace this with your background image name
                 .resizable()
-                .edgesIgnoringSafeArea(.all)
+               .edgesIgnoringSafeArea(.all)*/
             VStack {
                 HStack {
                     Spacer()
@@ -40,10 +43,11 @@ struct TimerView: View {
                     VStack {
                         Text(formatTime(time: secondsRemaining))
                             .font(.largeTitle)
-                        Slider(value: $secondsRemaining, in: 60...7200, step: 60)
+                        CustomSlider(value: $secondsRemaining, range: 60...7200, step: 60)
                             .padding(.horizontal)
                     }
                 }
+
                 
                 HStack {
                     if !timerIsActive {
@@ -113,4 +117,46 @@ struct TimerView: View {
         return String(format: "%02d:%02d", minutes, seconds)
     }
 }
+
+
+struct CustomSliderKnob: View {
+    var body: some View {
+        Circle()
+            .fill(Color.white)
+            .frame(width: 30, height: 30)
+            .shadow(radius: 2)
+    }
+}
+
+struct CustomSlider: View {
+    @Binding var value: Double
+    var range: ClosedRange<Double>
+    var step: Double
+
+    var body: some View {
+        GeometryReader { geometry in
+            ZStack(alignment: .leading) {
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.gray.opacity(0.2))
+                RoundedRectangle(cornerRadius: 10)
+                    .fill(Color.green)
+                    .frame(width: CGFloat((self.value - self.range.lowerBound) / (self.range.upperBound - self.range.lowerBound)) * geometry.size.width)
+                CustomSliderKnob()
+                    .offset(x: CGFloat((self.value - self.range.lowerBound) / (self.range.upperBound - self.range.lowerBound)) * geometry.size.width - 15)
+                    .gesture(
+                        DragGesture()
+                            .onChanged { gesture in
+                                self.value = max(min(Double(gesture.location.x / geometry.size.width) * (self.range.upperBound - self.range.lowerBound) + self.range.lowerBound, self.range.upperBound), self.range.lowerBound)
+                                self.value = round(self.value / self.step) * self.step
+                            }
+                    )
+            }
+        }
+        .frame(height: 30)
+    }
+}
+
+
+
+
 

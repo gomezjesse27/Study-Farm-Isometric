@@ -89,7 +89,8 @@ struct FarmView: View {
         for i in stride(from: -gridSize/2, to: gridSize/2, by: 1) {
             for j in stride(from: -gridSize/2, to: gridSize/2, by: 1) {
                 let node = SCNNode(geometry: SCNBox(width: 1, height: 0.1, length: 1, chamferRadius: 0))
-                node.geometry?.firstMaterial?.diffuse.contents = UIColor.green
+                node.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "grass")
+
                 node.position = SCNVector3(Float(i) + 0.5, 0, Float(j) + 0.5)
                 scene.rootNode.addChildNode(node)
             }

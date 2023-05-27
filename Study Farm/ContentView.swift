@@ -11,60 +11,89 @@ import SceneKit
 struct ContentView: View {
     @State private var selectedTab = 0
     @EnvironmentObject var authViewModel: AuthViewModel
-    init() {
-            UITabBar.appearance().barTintColor = UIColor.systemBackground
-            UITabBar.appearance().isTranslucent = false
-        }
+    
     var body: some View {
         ZStack {
-            Color(red: 0.690, green: 0.878, blue: 0.902).edgesIgnoringSafeArea(.all)
-
-            Rectangle()
-                .foregroundColor(Color.white)
-                .ignoresSafeArea()
-
-            TabView(selection: $selectedTab) {
-                TimerView()
-                    .tabItem {
-                        Image(systemName: "timer")
-                        Text("Timer")
-                    }
-                    .tag(0)
-
-                FriendsView()
-                    .tabItem {
-                        Image(systemName: "person.2")
-                        Text("Friends")
-                    }
-                    .tag(1)
-
-                FarmView()
-                    .tabItem {
-                        Image(systemName: "leaf")
-                        Text("Farm")
-                    }
-                    .tag(2)
-
-                ShopView()
-                    .tabItem {
-                        Image(systemName: "chart.bar")
-                        Text("Shop")
-                    }
-                    .tag(3)
-
-                ProfileView()
-                    .tabItem {
-                        Image(systemName: "person.crop.circle")
-                        Text("Profile")
-                    }
-                    .tag(4)
+            // The main content
+            VStack {
+                switch selectedTab {
+                case 0:
+                    TimerView()
+                case 1:
+                    FriendsView()
+                case 2:
+                    FarmView()
+                case 3:
+                    ShopView()
+                case 4:
+                    ProfileView()
+                default:
+                    EmptyView()
+                }
+                Spacer() // Pushes the tab bar to the bottom
             }
-            .environmentObject(authViewModel)
-            .accentColor(.blue) // Adjust this color as needed.
+            
+            // Custom Tab Bar
+            VStack {
+                Spacer() // Pushes the tab bar to the bottom
+                HStack {
+                    Button(action: { selectedTab = 0 }) {
+                        VStack {
+                            Image("hourglass")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 40, height: 30) // Adjust the frame as needed                        }
+                        }
+                        .padding([.horizontal, .bottom]) // Add horizontal and bottom padding to the buttons
+                        
+                        Button(action: { selectedTab = 1 }) {
+                            VStack {
+                                Image("support")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 30) // Adjust the frame as needed
+                            }
+                        }
+                        .padding([.horizontal, .bottom])
+                        
+                        Button(action: { selectedTab = 2 }) {
+                            VStack {
+                                Image("livestock")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 30) // Adjust the frame as needed
+                                
+                            }
+                        }
+                        .padding([.horizontal, .bottom])
+                        
+                        Button(action: { selectedTab = 3 }) {
+                            VStack {
+                                Image("farm-shop")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 40, height: 30) // Adjust the frame as needed
+                            }
+                        }
+                        .padding([.horizontal, .bottom])
+                        
+                        Button(action: { selectedTab = 4 }) {
+                            VStack {
+                                Image("farmer")
+                                    .resizable()
+                                    .scaledToFit()
+                                    .frame(width: 30, height: 30) // Adjust the frame as needed
+                            }
+                        }
+                        .padding([.horizontal, .bottom])
+                    }
+                    .frame(width: UIScreen.main.bounds.width, height: 60) // Set tab bar width to match screen width and fixed height
+                    .background(Color(red: 168/255, green: 213/255, blue: 247/255)) // You can customize this as needed
+                }
+            }
         }
     }
 }
-
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

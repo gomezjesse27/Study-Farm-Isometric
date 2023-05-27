@@ -103,14 +103,6 @@
 		2364083A2A211EDB000147E6 /* Sheep_Walk.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Walk.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Walk.scn"; sourceTree = "<group>"; };
 		2364083C2A211EE1000147E6 /* Sheep_Idle_A.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Idle_A.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Idle_A.scn"; sourceTree = "<group>"; };
 		236408422A2144A2000147E6 /* FriendsFarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFarmView.swift; sourceTree = "<group>"; };
-		236408472A216D3B000147E6 /* MSGradientCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MSGradientCircularSlider+IB.swift"; sourceTree = "<group>"; };
-		236408482A216D3B000147E6 /* MSDoubleHandleCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MSDoubleHandleCircularSlider+IB.swift"; sourceTree = "<group>"; };
-		236408492A216D3B000147E6 /* MSDoubleHandleCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSDoubleHandleCircularSlider.swift; sourceTree = "<group>"; };
-		2364084A2A216D3B000147E6 /* MSCircularSliderAnimationLayer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCircularSliderAnimationLayer.swift; sourceTree = "<group>"; };
-		2364084B2A216D3B000147E6 /* MSCircularSlider+IB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MSCircularSlider+IB.swift"; sourceTree = "<group>"; };
-		2364084C2A216D3B000147E6 /* MSCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCircularSlider.swift; sourceTree = "<group>"; };
-		2364084D2A216D3B000147E6 /* MSGradientCircularSlider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSGradientCircularSlider.swift; sourceTree = "<group>"; };
-		2364084E2A216D3B000147E6 /* MSCircularSliderHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MSCircularSliderHandle.swift; sourceTree = "<group>"; };
 		238334E22A1C1A4300319E7A /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		238334E42A1C226400319E7A /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		238334E62A1C228900319E7A /* MovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementController.swift; sourceTree = "<group>"; };
@@ -180,21 +172,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		236408462A216D3B000147E6 /* MSCircularSlider */ = {
-			isa = PBXGroup;
-			children = (
-				236408472A216D3B000147E6 /* MSGradientCircularSlider+IB.swift */,
-				236408482A216D3B000147E6 /* MSDoubleHandleCircularSlider+IB.swift */,
-				236408492A216D3B000147E6 /* MSDoubleHandleCircularSlider.swift */,
-				2364084A2A216D3B000147E6 /* MSCircularSliderAnimationLayer.swift */,
-				2364084B2A216D3B000147E6 /* MSCircularSlider+IB.swift */,
-				2364084C2A216D3B000147E6 /* MSCircularSlider.swift */,
-				2364084D2A216D3B000147E6 /* MSGradientCircularSlider.swift */,
-				2364084E2A216D3B000147E6 /* MSCircularSliderHandle.swift */,
-			);
-			path = MSCircularSlider;
-			sourceTree = "<group>";
-		};
 		23D5790F2A17F9840055C693 = {
 			isa = PBXGroup;
 			children = (
@@ -256,7 +233,6 @@
 				238334E82A1C412700319E7A /* Cow_LOD3.dae */,
 				238334EA2A1C495B00319E7A /* Cow_LOD3.scn */,
 				23E9FBD92A1BFE8A002AB389 /* T_Colobus.png */,
-				236408462A216D3B000147E6 /* MSCircularSlider */,
 				23D579212A17F9860055C693 /* Preview Content */,
 			);
 			path = "Study Farm";
