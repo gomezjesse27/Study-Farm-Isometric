@@ -18,8 +18,10 @@ class AuthViewModel: ObservableObject {
     @Published var userAnimals: [Animal] = []
     @Published var friendAnimals: [Animal] = []
     //@Published var friendRequests: [String] = []
+    @Published var userAnimalCounts: [(name: String, count: Int)] = []
     @Published var friendRequests: [User] = []
     @Published var friends: [User] = []
+    @Published var sellAnimalError: String = ""
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     let db = Firestore.firestore()
     
@@ -348,8 +350,69 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+    func sellAnimal(animalName: String, quantity: Int, completion: @escaping (Bool) -> Void) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
 
-    
+        let animalDocument = db.collection("users").document(user.uid).collection("animals").document(animalName)
+
+        animalDocument.getDocument { (document, error) in
+            if let error = error {
+                print("Error getting animal count: \(error)")
+                completion(false)
+            } else {
+                var currentCount = document?.get("count") as? Int ?? 0
+                if currentCount >= quantity {
+                    currentCount -= quantity
+                    animalDocument.setData([
+                        "name": animalName,
+                        "count": currentCount
+                    ]) { error in
+                        if let error = error {
+                            print("Error writing animal count: \(error)")
+                            completion(false)
+                        } else {
+                            // Update user's currency
+                            let sellPrice = 10 * quantity
+                            self.getUserCurrency { userCurrency in
+                                let updatedCurrency = userCurrency + sellPrice
+                                self.saveUserCurrency(updatedCurrency)
+                                completion(true)
+                            }
+                        }
+                    }
+                } else {
+                    print("Not enough animals to sell")
+                    completion(false)
+                }
+            }
+        }
+    }
+
+    func getUserAnimalCounts() {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        db.collection("users").document(user.uid).collection("animals").getDocuments { (querySnapshot, error) in
+            if let error = error {
+                print("Error reading animals: \(error)")
+            } else {
+                print("Query Snapshot: \(String(describing: querySnapshot))")
+                var animalCounts: [(name: String, count: Int)] = []
+                for document in querySnapshot!.documents {
+                    let animalName = document.documentID
+                    let count = document.get("count") as? Int ?? 0
+                    animalCounts.append((name: animalName, count: count))
+                }
+                DispatchQueue.main.async {
+                    self.userAnimalCounts = animalCounts
+                }
+            }
+        }
+    }
+
+
     
     
     func acceptFriendRequest(fromUserId userId: String) {

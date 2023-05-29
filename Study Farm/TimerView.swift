@@ -59,7 +59,7 @@ struct TimerView: View {
                                 .font(.headline)
                                 .foregroundColor(.white)
                                 .padding()
-                                .background(Color.green)
+                                .background(Color(red: 186/255, green: 233/255, blue: 217/255))
                                 .cornerRadius(15)
                         }
                     } else {
@@ -139,7 +139,7 @@ struct CustomSlider: View {
                 RoundedRectangle(cornerRadius: 10)
                     .fill(Color.gray.opacity(0.2))
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.green)
+                    .fill(Color(red: 186/255, green: 233/255, blue: 217/255))
                     .frame(width: CGFloat((self.value - self.range.lowerBound) / (self.range.upperBound - self.range.lowerBound)) * geometry.size.width)
                 CustomSliderKnob()
                     .offset(x: CGFloat((self.value - self.range.lowerBound) / (self.range.upperBound - self.range.lowerBound)) * geometry.size.width - 15)

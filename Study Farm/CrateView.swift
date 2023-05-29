@@ -13,7 +13,7 @@ struct CrateView: View {
     var crateDescription: String
     var cratePrice: Int
     var onBuy: () -> Void
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             
@@ -29,13 +29,18 @@ struct CrateView: View {
             Button(action: {
                 onBuy()
             }) {
-                Text("Buy for \(cratePrice) Farm Bucks")
+                HStack {
+                    Spacer()
+                    Text("Buy for \(cratePrice) Farm Bucks")
+                    Spacer()
+                }
+                .padding() // Add padding to the text
+                .background(Color(red: 174/255, green: 234/255, blue: 198/255)) // Button's pastel green background color
+                .foregroundColor(.white) // Button's text color
+                .cornerRadius(10) // Rounded corners
             }
-            .buttonStyle(.bordered)
-            .controlSize(.large)
-            .padding(.top)
+            .padding(.bottom)
         }
-        .padding(.bottom)
     }
 }
 

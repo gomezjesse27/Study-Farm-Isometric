@@ -95,5 +95,5 @@ struct ProfileView: View {
 }
 
 extension Color {
-    static let pastelGreen = Color(red: 0.678, green: 0.847, blue: 0.902)
+    static let pastelGreen = Color(red: 188/255, green: 224/255, blue: 247/255)
 }

@@ -54,7 +54,7 @@ struct FarmView: View {
     
     
     func setupEnvironment() {
-        scene.background.contents = UIColor.systemTeal
+        scene.background.contents = UIColor(red: 188/255, green: 224/255, blue: 247/255, alpha: 1)
         setupCamera()
         setupLighting()
     }
@@ -89,7 +89,7 @@ struct FarmView: View {
         for i in stride(from: -gridSize/2, to: gridSize/2, by: 1) {
             for j in stride(from: -gridSize/2, to: gridSize/2, by: 1) {
                 let node = SCNNode(geometry: SCNBox(width: 1, height: 0.1, length: 1, chamferRadius: 0))
-                node.geometry?.firstMaterial?.diffuse.contents = UIImage(named: "grass")
+                node.geometry?.firstMaterial?.diffuse.contents = UIColor(red: 171/255, green: 212/255, blue: 188/255, alpha: 1)
 
                 node.position = SCNVector3(Float(i) + 0.5, 0, Float(j) + 0.5)
                 scene.rootNode.addChildNode(node)

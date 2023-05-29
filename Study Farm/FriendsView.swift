@@ -15,9 +15,8 @@ struct FriendsView: View {
     var body: some View {
         NavigationView {
             ZStack {
-                Image("TimerViewBG") // Replace this with your background image name
-                    .resizable()
-                    .edgesIgnoringSafeArea(.all)
+                Color(red: 188/255, green: 224/255, blue: 247/255)
+                        .edgesIgnoringSafeArea(.all)
                 
                 VStack { // Extra VStack added here
                     SearchBar(text: $searchText, placeholder: "Search friends")
@@ -50,18 +49,31 @@ struct FriendsListView: View {
 
     var body: some View {
         ScrollView {
-            VStack {
-                ForEach(authViewModel.friends, id: \.id) { friend in
+            ForEach(authViewModel.friends, id: \.id) { friend in
+                HStack {
+                    Text("\(friend.email)")
+                        .font(.title2)
+                    Spacer()
                     NavigationLink(destination: FriendsFarmView(friendID: friend.id, friendEmail: friend.email)) {
-                        Text(friend.email)
+                        Text("Visit Farm")
+                            .padding() // Padding for text within button
+                            .frame(minWidth: 70) // Ensures button has a minimum width
+                            .background(Color(red: 174/255, green: 234/255, blue: 198/255)) // Button's pastel green background color
+                            .foregroundColor(.white) // Button's text color
+                            .cornerRadius(10) // Rounded corners
                     }
-                    Divider()  // Adding Divider to mimic List behavior
                 }
+                .padding(.horizontal)
+                .padding(.vertical, 5)
+                .background(Color(red: 168/255, green: 204/255, blue: 227/255)) // Darker blue background
+                .cornerRadius(10)
+                Divider()  // Adding Divider to mimic List behavior
             }
             .padding()  // Add padding to mimic List behavior
         }
     }
 }
+
 
 
     struct FriendsView_Previews: PreviewProvider {

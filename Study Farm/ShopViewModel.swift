@@ -14,7 +14,8 @@ class ShopViewModel: ObservableObject {
     @Published var message = ""
     @Published var errorMessage = ""
     @Published var currency = 0
-    
+    @Published var userAnimalCounts: [(name: String, count: Int)] = []
+
     let authViewModel = AuthViewModel()
     
     let commonCrateAnimals: [String] = ["Colobus", "Colobus", "Colobus", "Colobus", "Colobus"]
