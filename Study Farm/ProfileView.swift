@@ -17,12 +17,16 @@ struct AAChartKitView: UIViewRepresentable {
         uiView.aa_refreshChartWholeContentWithChartModel(chartModel)
     }
 }
+
 struct ProfileView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
-
+    
     @State private var selectedInterval = Interval.day
     @State private var aaChartModel: AAChartModel?
-
+    @State private var newUsername: String = ""
+    @State private var showingEditUsernameView: Bool = false
+    @State private var errorMessage: String = ""
+    
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
@@ -31,29 +35,33 @@ struct ProfileView: View {
                         .resizable()
                         .frame(width: 100, height: 100)
                         .clipShape(Circle())
+                    
+                    VStack(alignment: .leading) {
+                        Text("Username:")
+                            .foregroundColor(.white)
+                        Text(authViewModel.username ?? "")
+                            .foregroundColor(.white)
+                            .font(.title) // Bigger font for the username
+                    }
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        self.showingEditUsernameView = true
+                    }) {
+                        Text("Edit")
+                            .foregroundColor(.blue)
+                    }
                 }
                 .padding()
                 .background(Color.pastelGreen)
 
-                // Interval Picker
-                Picker("Select Interval", selection: $selectedInterval) {
-                    Text("Day").tag(Interval.day)
-                    Text("Week").tag(Interval.week)
-                    Text("Month").tag(Interval.month)
-                    Text("Year").tag(Interval.year)
-                }
-                .pickerStyle(SegmentedPickerStyle())
-
-                // Bar chart
+                // Add the AAChartKitView here, only if aaChartModel is not nil
                 if let chartModel = self.aaChartModel {
                     AAChartKitView(chartModel: chartModel)
-                        .frame(height: 300)  // Specify a frame height for the chart view
-                        .background(Color.pastelGreen)
-                } else {
-                    Text("No data available")
+                        .frame(height: 300) // Set a proper frame according to your needs
+                        .padding()
                 }
-
-                Spacer()
 
                 Button(action: {
                     authViewModel.signOut()
@@ -65,11 +73,16 @@ struct ProfileView: View {
                         .background(Color.red)
                         .cornerRadius(15)
                 }
+                
+                Text(errorMessage) // Display the error message
+                    .foregroundColor(.red)
+                    .padding()
             }
             .padding()
         }
         .background(Color.pastelGreen.edgesIgnoringSafeArea(.all)) // Apply the pastel green to the entire ScrollView
         .onAppear {
+            authViewModel.getUsername()
             authViewModel.getStudySessionData(interval: selectedInterval) { sessions in
                 // map sessions to AAChartModel
                 let chartData = sessions.map { Double($0.value) }
@@ -91,9 +104,32 @@ struct ProfileView: View {
                     ])
             }
         }
-    }
+        .sheet(isPresented: $showingEditUsernameView) {
+                VStack {
+                    Text("Edit Username")
+                        .font(.headline)
+                    TextField("Username", text: $newUsername)
+                        .padding()
+                    Button("Save", action: {
+                        authViewModel.updateUsername(newUsername: newUsername) { error in
+                            if let error = error {
+                                errorMessage = error.localizedDescription
+                            } else {
+                                authViewModel.getUsername() // fetch the updated username
+                                showingEditUsernameView = false
+                                errorMessage = ""
+                            }
+                        }
+                    })
+                    .padding()
+                }
+                .padding()
+            }
+        }
 }
 
 extension Color {
     static let pastelGreen = Color(red: 188/255, green: 224/255, blue: 247/255)
 }
+
+

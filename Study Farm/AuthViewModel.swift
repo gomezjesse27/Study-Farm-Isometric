@@ -22,6 +22,7 @@ class AuthViewModel: ObservableObject {
     @Published var friendRequests: [User] = []
     @Published var friends: [User] = []
     @Published var sellAnimalError: String = ""
+    @Published var username: String? // to hold the current user's username
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     let db = Firestore.firestore()
     
@@ -45,6 +46,46 @@ class AuthViewModel: ObservableObject {
             Auth.auth().removeStateDidChangeListener(handle)
         }
     }
+    func getUsername() {
+            guard let userId = Auth.auth().currentUser?.uid else {
+                return
+            }
+            let docRef = db.collection("users").document(userId)
+            docRef.getDocument { (document, error) in
+                if let document = document, document.exists {
+                    let data = document.data()
+                    self.username = data?["username"] as? String
+                } else {
+                    print("Document does not exist")
+                }
+            }
+        }
+    func updateUsername(newUsername: String, completion: @escaping (Error?) -> Void) {
+           // Check if the username already exists in the database
+           db.collection("users")
+               .whereField("username", isEqualTo: newUsername)
+               .getDocuments() { (querySnapshot, err) in
+                   if let err = err {
+                       print("Error getting documents: \(err)")
+                       completion(err)
+                   } else if querySnapshot?.documents.count != 0 {
+                       // Username already exists
+                       completion(NSError(domain: "", code: -1, userInfo: [NSLocalizedDescriptionKey: "Username already exists"]))
+                   } else {
+                       // Username does not exist, so we can update the username
+                       guard let userId = Auth.auth().currentUser?.uid else {
+                           return
+                       }
+                       self.db.collection("users").document(userId).updateData(["username": newUsername]) { error in
+                           if let error = error {
+                               print("Error updating username: \(error)")
+                           }
+                           completion(error)
+                       }
+                   }
+           }
+       }
+   
     
     func signIn(email: String, password: String) {
         // Reset error message
@@ -111,28 +152,34 @@ class AuthViewModel: ObservableObject {
         }
     }
     
-    func createAccount(email: String, password: String) {
+    func createAccount(email: String, password: String, completion: @escaping (Error?) -> Void) {
         Auth.auth().createUser(withEmail: email, password: password) { (result, error) in
-            guard let result = result, error == nil else {
-                // An error occurred
+            if let error = error {
+                completion(error)
                 return
             }
-            
-            // User successfully created, now add email to Firestore
-            let userId = result.user.uid
+
+            // User successfully created, now add email and username to Firestore
+            let userId = result!.user.uid
             let lowercasedEmail = email.lowercased()
-            self.db.collection("users").document(userId).setData(["email": lowercasedEmail]) { error in
+            self.db.collection("users").document(userId).setData([
+                "email": lowercasedEmail,
+                "username": lowercasedEmail
+            ]) { error in
                 if let error = error {
-                    print("Error adding email to Firestore: \(error)")
+                    print("Error adding email and username to Firestore: \(error)")
+                    completion(error)
                     return
                 }
                 
                 DispatchQueue.main.async {
                     self.isSignedIn = true
                 }
+                completion(nil)
             }
         }
     }
+
     
     func createAccount(email: String, password: String, confirmPassword: String) {
         // Reset error message
@@ -336,12 +383,12 @@ class AuthViewModel: ObservableObject {
         for id in ids {
             db.collection("users").document(id).getDocument { (document, error) in
                 if let document = document, document.exists, let data = document.data(),
-                   let email = data["email"] as? String {
+                   let username = data["username"] as? String {
                     DispatchQueue.main.async {
                         if updatingFriends {
-                            self.friends.append(User(id: id, email: email))
+                            self.friends.append(User(id: id, email: username))
                         } else {
-                            self.friendRequests.append(User(id: id, email: email))
+                            self.friendRequests.append(User(id: id, email: username))
                         }
                     }
                 } else if let error = error {
