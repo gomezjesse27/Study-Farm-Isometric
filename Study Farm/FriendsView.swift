@@ -46,6 +46,8 @@ struct FriendsView: View {
 }
 struct FriendsListView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
+    @State private var showDeleteAlert = false
+    @State private var friendToDelete: User? // Assuming User model
 
     var body: some View {
         ScrollView {
@@ -56,23 +58,38 @@ struct FriendsListView: View {
                     Spacer()
                     NavigationLink(destination: FriendsFarmView(friendID: friend.id, friendEmail: friend.email)) {
                         Text("Visit Farm")
-                            .padding() // Padding for text within button
-                            .frame(minWidth: 70) // Ensures button has a minimum width
-                            .background(Color(red: 174/255, green: 234/255, blue: 198/255)) // Button's pastel green background color
-                            .foregroundColor(.white) // Button's text color
-                            .cornerRadius(10) // Rounded corners
+                            .padding()
+                            .frame(minWidth: 70)
+                            .background(Color(red: 174/255, green: 234/255, blue: 198/255))
+                            .foregroundColor(.white)
+                            .cornerRadius(10)
+                    }
+                    Button(action: {
+                        self.showDeleteAlert = true
+                        self.friendToDelete = friend
+                    }) {
+                        Image(systemName: "xmark")
+                            .foregroundColor(.red)
+                    }
+                    .alert(isPresented: $showDeleteAlert) {
+                        Alert(title: Text("Delete Friend"), message: Text("Are you sure you want to delete this friend?"), primaryButton: .destructive(Text("Delete")) {
+                            if let friend = friendToDelete {
+                                authViewModel.deleteFriend(friend: friend)
+                            }
+                        }, secondaryButton: .cancel())
                     }
                 }
                 .padding(.horizontal)
                 .padding(.vertical, 5)
-                .background(Color(red: 168/255, green: 204/255, blue: 227/255)) // Darker blue background
+                .background(Color(red: 168/255, green: 204/255, blue: 227/255))
                 .cornerRadius(10)
-                Divider()  // Adding Divider to mimic List behavior
+                Divider()
             }
-            .padding()  // Add padding to mimic List behavior
+            .padding()
         }
     }
 }
+
 
 
 
@@ -120,6 +137,9 @@ struct FriendsListView: View {
     
 struct AddFriendView: View {
     @State private var email = ""
+    @State private var showAlert = false
+    @State private var alertTitle = ""
+    @State private var alertMessage = ""
     @EnvironmentObject var authViewModel: AuthViewModel
     
     var body: some View {
@@ -128,10 +148,10 @@ struct AddFriendView: View {
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             
-            
             VStack {
                 Section(header: Text("Friend's Email")) {
                     TextField("Email", text: $email)
+                        .foregroundColor(.black) // Added this line
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -143,24 +163,34 @@ struct AddFriendView: View {
                 Section {
                     Button(action: {
                         // Search for friend with email and send friend request
-                        authViewModel.sendFriendRequest(toEmail: email)
+                        authViewModel.sendFriendRequest(toEmail: email) { success in
+                            if success {
+                                alertTitle = "Success"
+                                alertMessage = "Friend request sent!"
+                                email = ""
+                            } else {
+                                alertTitle = "Error"
+                                alertMessage = "User does not exist"
+                            }
+                            showAlert = true
+                        }
                     }) {
                         Text("Send Friend Request")
                     }
                     .padding()
                     .background(Color.white)
                     .cornerRadius(8)
+                    .alert(isPresented: $showAlert) {
+                        Alert(title: Text(alertTitle), message: Text(alertMessage), dismissButton: .default(Text("OK")))
+                    }
                 }
             }
             .padding()
-           
         }
         .navigationTitle("Add Friend")
     }
 }
-    
-    
-    
+
 struct FriendRequestsView: View {
     @Environment(\.presentationMode) var presentationMode
     @EnvironmentObject var authViewModel: AuthViewModel
@@ -176,6 +206,7 @@ struct FriendRequestsView: View {
                     ForEach(authViewModel.friendRequests) { friendRequest in
                         HStack {
                             Text(friendRequest.email) // Display the friend request ID here
+                                .foregroundColor(.black) // Added this line
                             Spacer()
                             Button(action: {
                                 authViewModel.acceptFriendRequest(fromUserId: friendRequest.id)
@@ -205,4 +236,5 @@ struct FriendRequestsView: View {
         .navigationTitle("Friend Requests")
     }
 }
+
 

@@ -23,6 +23,7 @@ class AuthViewModel: ObservableObject {
     @Published var friends: [User] = []
     @Published var sellAnimalError: String = ""
     @Published var username: String? // to hold the current user's username
+    @Published var timerIsActive: Bool = false
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     let db = Firestore.firestore()
     
@@ -342,8 +343,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-    func sendFriendRequest(toEmail email: String) {
-        // Find the recipient user document by their email
+    func sendFriendRequest(toEmail email: String, completion: @escaping (Bool) -> Void) {
         guard let currentUserEmail = Auth.auth().currentUser?.email,
               currentUserEmail.lowercased() != email.lowercased() else {
             print("User cannot send a friend request to themselves")
@@ -352,17 +352,23 @@ class AuthViewModel: ObservableObject {
         self.db.collection("users").whereField("email", isEqualTo: email).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Error finding user: \(error)")
+                completion(false)
             } else if let recipientUserId = querySnapshot?.documents.first?.documentID,
                       let senderUserId = Auth.auth().currentUser?.uid {
-                // Add a friend request to the recipient's friendRequests collection
                 self.db.collection("users").document(recipientUserId).collection("friendRequests").document(senderUserId).setData([:]) { error in
                     if let error = error {
                         print("Error sending friend request: \(error)")
+                        completion(false)
+                    } else {
+                        completion(true)
                     }
                 }
+            } else {
+                completion(false)
             }
         }
     }
+
     func fetchFriendRequests() {
         guard let userId = Auth.auth().currentUser?.uid else { return }
 
@@ -397,6 +403,53 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
+    func deleteFriend(friend: User) {
+        guard let userID = Auth.auth().currentUser?.uid else { return }
+
+        // Removing friend from the current user's friends collection
+        db.collection("users").document(userID).collection("friends").document(friend.id).delete { err in
+            if let err = err {
+                print("Error removing friend from current user's friends collection: \(err)")
+            } else {
+                print("Friend successfully removed from current user's friends collection!")
+            }
+        }
+
+        // Removing the current user from the friend's friends collection
+        db.collection("users").document(friend.id).collection("friends").document(userID).delete { err in
+            if let err = err {
+                print("Error removing current user from friend's friends collection: \(err)")
+            } else {
+                print("Current user successfully removed from friend's friends collection!")
+            }
+        }
+
+        // Deleting friend from the current user's friend list in users document
+        db.collection("users").document(userID).updateData([
+            "friends": FieldValue.arrayRemove([friend.id])
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                // Remove friend from local friends array
+                self.friends = self.friends.filter { $0.id != friend.id }
+                print("Friend successfully removed!")
+            }
+        }
+
+        // Deleting the current user from the friend's friend list in users document
+        db.collection("users").document(friend.id).updateData([
+            "friends": FieldValue.arrayRemove([userID])
+        ]) { err in
+            if let err = err {
+                print("Error updating document: \(err)")
+            } else {
+                print("User successfully removed from friend's list!")
+            }
+        }
+    }
+
+
     func sellAnimal(animalName: String, quantity: Int, completion: @escaping (Bool) -> Void) {
         guard let user = Auth.auth().currentUser else {
             return

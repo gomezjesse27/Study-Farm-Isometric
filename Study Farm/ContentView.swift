@@ -12,6 +12,7 @@ struct ContentView: View {
     @State private var selectedTab = 0
     @EnvironmentObject var authViewModel: AuthViewModel
     
+    
     var body: some View {
         ZStack {
             // The main content
@@ -32,7 +33,14 @@ struct ContentView: View {
                 }
                 Spacer() // Pushes the tab bar to the bottom
             }
-            
+            if authViewModel.timerIsActive {
+                           VStack {
+                               Spacer()
+                               Color(red: 188/255, green: 224/255, blue: 247/255) // the same color as the TimerView background
+                                   .frame(height: 60) // Match the height of your tab bar
+                                   
+                           }.edgesIgnoringSafeArea(.bottom) // Cover the SafeArea
+            } else {
             // Custom Tab Bar
             VStack {
                 Spacer() // Pushes the tab bar to the bottom
@@ -42,7 +50,7 @@ struct ContentView: View {
                             Image("hourglass")
                                 .resizable()
                                 .scaledToFit()
-                                .frame(width: 40, height: 30) // Adjust the frame as needed                        }
+                                .frame(width: 40, height: 30) // Adjust th e frame as needed                        }
                         }
                         .padding([.horizontal, .bottom]) // Add horizontal and bottom padding to the buttons
                         
@@ -89,6 +97,7 @@ struct ContentView: View {
                     }
                     .frame(width: UIScreen.main.bounds.width, height: 60) // Set tab bar width to match screen width and fixed height
                     .background(Color(red: 168/255, green: 213/255, blue: 247/255)) // You can customize this as needed
+                }
                 }
             }
         }

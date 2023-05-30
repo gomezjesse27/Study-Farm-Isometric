@@ -15,6 +15,7 @@
 		2364083B2A211EDB000147E6 /* Sheep_Walk.scn in Resources */ = {isa = PBXBuildFile; fileRef = 2364083A2A211EDB000147E6 /* Sheep_Walk.scn */; };
 		2364083D2A211EE1000147E6 /* Sheep_Idle_A.scn in Resources */ = {isa = PBXBuildFile; fileRef = 2364083C2A211EE1000147E6 /* Sheep_Idle_A.scn */; };
 		236408432A2144A3000147E6 /* FriendsFarmView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236408422A2144A2000147E6 /* FriendsFarmView.swift */; };
+		236408562A2691A6000147E6 /* TasksView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 236408552A2691A6000147E6 /* TasksView.swift */; };
 		238334E32A1C1A4300319E7A /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E22A1C1A4300319E7A /* Grid.swift */; };
 		238334E52A1C226400319E7A /* StateMachine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E42A1C226400319E7A /* StateMachine.swift */; };
 		238334E72A1C228900319E7A /* MovementController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 238334E62A1C228900319E7A /* MovementController.swift */; };
@@ -103,6 +104,7 @@
 		2364083A2A211EDB000147E6 /* Sheep_Walk.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Walk.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Walk.scn"; sourceTree = "<group>"; };
 		2364083C2A211EE1000147E6 /* Sheep_Idle_A.scn */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; name = Sheep_Idle_A.scn; path = "../../../Quirky Wacky ULTIMATE Series/Quirky Wacky Mega Pack Vol.1/Quirky Series - Farm Animals Vol.1 v1.4/3D Files/DAE/Animations/Single/Sheep_Idle_A.scn"; sourceTree = "<group>"; };
 		236408422A2144A2000147E6 /* FriendsFarmView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsFarmView.swift; sourceTree = "<group>"; };
+		236408552A2691A6000147E6 /* TasksView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TasksView.swift; sourceTree = "<group>"; };
 		238334E22A1C1A4300319E7A /* Grid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		238334E42A1C226400319E7A /* StateMachine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StateMachine.swift; sourceTree = "<group>"; };
 		238334E62A1C228900319E7A /* MovementController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovementController.swift; sourceTree = "<group>"; };
@@ -202,6 +204,7 @@
 				23E9FB6B2A195FBD002AB389 /* CreateAccountView.swift */,
 				23D5791D2A17F9840055C693 /* ContentView.swift */,
 				23E9FB7B2A1ACDCC002AB389 /* TimerView.swift */,
+				236408552A2691A6000147E6 /* TasksView.swift */,
 				23E9FB832A1ACE99002AB389 /* FriendsView.swift */,
 				23E9FB732A199999002AB389 /* FarmView.swift */,
 				236408422A2144A2000147E6 /* FriendsFarmView.swift */,
@@ -454,6 +457,7 @@
 				23D5791C2A17F9840055C693 /* Study_FarmApp.swift in Sources */,
 				238334F72A1D314000319E7A /* CrateView.swift in Sources */,
 				23E9FB6A2A195B15002AB389 /* AppDelegate.swift in Sources */,
+				236408562A2691A6000147E6 /* TasksView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
