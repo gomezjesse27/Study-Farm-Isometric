@@ -1,10 +1,16 @@
 import SwiftUI
 
 struct TasksView: View {
-    @State private var tasks: [String] = []
     @State private var showingAddTask = false
+    @State private var showingEditTask = false
     @State private var newTask = ""
-    @State private var taskStatuses: [Bool] = []
+    @State private var startTime = Date.now
+    @State private var endTime = Date.now
+    @ObservedObject private var viewModel = AuthViewModel()
+    @State private var currentEditingTask: Task?
+
+    /*@State private var taskStatuses: [bool] = []*/
+
 
     var body: some View {
         ZStack {
@@ -30,21 +36,31 @@ struct TasksView: View {
                 }
 
                 ScrollView {
-                    ForEach(tasks.indices, id: \.self) { index in
+                    ForEach(viewModel.tasks) { task in
                         HStack {
-                            Button(action: { taskStatuses[index].toggle() }) {
-                                Image(systemName: taskStatuses[index] ? "checkmark.circle.fill" : "circle")
+                           /*Button(action: { viewModel.updateTask(task: task) }) {
+                                Image(systemName: task.status ? "checkmark.circle.fill" : "circle")
                                     .foregroundColor(.white)
+                            }*/
+                            
+                            Button(action: {
+                                currentEditingTask = task
+                                showingEditTask = true
+                            }) {
+                                Image(systemName: "plus")
+                                    .foregroundColor(.white)
+                                    .font(.largeTitle)
                             }
 
-                            Text(tasks[index])
-                                .strikethrough(taskStatuses[index], color: .white)
+
+                            Text(task.title)
+                                .strikethrough(task.status, color: .white)
                                 .font(.title)
                                 .foregroundColor(.white)
                             
                             Spacer()
 
-                            Button(action: { deleteTask(at: index) }) {
+                            Button(action: { viewModel.deleteTask(task: task) }) {
                                 Image(systemName: "trash")
                                     .foregroundColor(.white)
                             }
@@ -70,9 +86,9 @@ struct TasksView: View {
                         
                         Button(action: {
                             if !newTask.isEmpty {
-                                tasks.append(newTask)
-                                taskStatuses.append(false)
+                                viewModel.addTask(title: newTask)
                                 newTask = ""
+                                viewModel.fetchTasks()
                             }
                             showingAddTask = false
                         }) {
@@ -83,17 +99,61 @@ struct TasksView: View {
                                 .padding()
                                 .background(Color(red: 186/255, green: 233/255, blue: 217/255))
                                 .cornerRadius(15)
+                                
                         }
                         .padding()
+                        
+                        
+                    }
+                })
+                
+                .sheet(isPresented: $showingEditTask, content: {
+                    VStack {
+                        Text("Add Time")
+                            .font(.largeTitle)
+                            .fontWeight(.bold)
+                            .padding()
+                        
+                        
+                        DatePicker("start time", selection: $startTime, displayedComponents: .hourAndMinute)
+                            .padding()
+                            .padding()
+                        DatePicker("end time", selection: $endTime, displayedComponents: .hourAndMinute)
+                            .padding()
+                            .padding()
+                        
+                        
+                        Button(action: {
+                            if let editingTask = currentEditingTask, startTime < endTime {
+                                // Ensure 'currentUserId' exists in 'AuthViewModel'.
+                                // If it doesn't, you need to define or find the correct name for that property.
+                                
+                                    viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime)
+                                    showingEditTask = false
+                                    currentEditingTask = nil // Clearing the current editing task
+                                
+                            } else {
+                                // Display an error to the user, possibly using an alert.
+                            }
+                            showingAddTask = false
+                        }) {
+                            Text("Add Time")
+                                .font(.title)
+                                .fontWeight(.bold)
+                                .foregroundColor(.white)
+                                .padding()
+                                .background(Color(red: 186/255, green: 233/255, blue: 217/255))
+                                .cornerRadius(15)
+                                
+                        }
+                        .padding()
+                        
+                        
                     }
                 })
             }
-        }
-    }
-    
-    private func deleteTask(at index: Int) {
-        tasks.remove(at: index)
-        taskStatuses.remove(at: index)
+        }.onAppear(perform: {
+            viewModel.fetchTasks()
+        })
     }
 }
-

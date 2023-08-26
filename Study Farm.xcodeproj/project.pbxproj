@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2363B2E62A2A8F8100E212B8 /* FirebaseFirestoreSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 2363B2E52A2A8F8100E212B8 /* FirebaseFirestoreSwift */; };
 		236408212A2090DE000147E6 /* Colobus_Walk.scnanim in Resources */ = {isa = PBXBuildFile; fileRef = 236408202A2090DE000147E6 /* Colobus_Walk.scnanim */; };
 		236408252A209243000147E6 /* Colobus_Clicked.scnanim in Resources */ = {isa = PBXBuildFile; fileRef = 236408242A209243000147E6 /* Colobus_Clicked.scnanim */; };
 		236408272A2092F4000147E6 /* Colobus_Animations.dae in Resources */ = {isa = PBXBuildFile; fileRef = 236408262A2092F4000147E6 /* Colobus_Animations.dae */; };
@@ -154,6 +155,7 @@
 				238335102A20011A00319E7A /* AAInfographics in Frameworks */,
 				23E9FB642A1959A3002AB389 /* FirebaseAuth in Frameworks */,
 				23E9FB662A1959A3002AB389 /* FirebaseFirestore in Frameworks */,
+				2363B2E62A2A8F8100E212B8 /* FirebaseFirestoreSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -296,6 +298,7 @@
 				23E9FB652A1959A3002AB389 /* FirebaseFirestore */,
 				238335012A1D506300319E7A /* SwiftUICharts */,
 				2383350F2A20011A00319E7A /* AAInfographics */,
+				2363B2E52A2A8F8100E212B8 /* FirebaseFirestoreSwift */,
 			);
 			productName = "Study Farm";
 			productReference = 23D579182A17F9840055C693 /* Study Farm.app */;
@@ -841,6 +844,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		2363B2E52A2A8F8100E212B8 /* FirebaseFirestoreSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseFirestoreSwift;
+		};
 		238335012A1D506300319E7A /* SwiftUICharts */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */;

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import FirebaseFirestore
+import FirebaseFirestoreSwift
 
 
 
@@ -16,6 +17,10 @@ class AuthViewModel: ObservableObject {
     @Published var isSignedIn = false
     @Published var errorMessage = ""
     @Published var userAnimals: [Animal] = []
+    //@Published var Tasks: [String] = []
+    @Published var tasks: [Task] = []
+    @Published var currentUserID = Auth.auth().currentUser
+
     @Published var friendAnimals: [Animal] = []
     //@Published var friendRequests: [String] = []
     @Published var userAnimalCounts: [(name: String, count: Int)] = []
@@ -47,6 +52,106 @@ class AuthViewModel: ObservableObject {
             Auth.auth().removeStateDidChangeListener(handle)
         }
     }
+   /* func savetask() {
+        guard let userId = Auth.auth().currentUser?.uid else{
+            return
+        }
+        let docRef = db.collection("")
+    }*/
+    // Fetch tasks from Firestore
+    func fetchTasks() {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        db.collection("users").document(user.uid).collection("tasks").getDocuments { (querySnapshot, err) in
+            if let err = err {
+                print("Error getting tasks: \(err)")
+            } else {
+                self.tasks = querySnapshot!.documents.compactMap({ (document) -> Task? in
+                    try? document.data(as: Task.self)
+                })
+            }
+        }
+    }
+    func updateTimeForTask(task: Task, startTime: Date, endTime: Date) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        guard let taskId = task.id else { return }
+
+        let db = Firestore.firestore()
+        let taskDocument = db.collection("users").document(user.uid).collection("tasks").document(taskId)
+        
+        // Getting a reference to the 'studyIntervals' sub-collection and generating a new document ID
+        let newIntervalRef = taskDocument.collection("studyIntervals").document()
+        
+        newIntervalRef.setData([
+            "startTime": startTime.timeIntervalSince1970,
+            "endTime": endTime.timeIntervalSince1970,
+            "date": Date().timeIntervalSince1970
+        ]) { err in
+            if let err = err {
+                print("Error adding study interval: \(err)")
+            } else {
+                print("Study interval successfully added!")
+            }
+        }
+    }
+
+    /*func editTaskTime(_ tasktime: Int) {
+        db.collection("users").document(user.uid).collection("tasks").addFiel
+        
+    }*/
+    
+    // Add new task to Firestore
+    func addTask(title: String) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        let newTask = Task(title: title, status: false)
+        
+        do {
+            let _ = try db.collection("users").document(user.uid).collection("tasks").addDocument(from: newTask)
+        } catch let error {
+            print("Error writing task to Firestore: \(error)")
+        }
+    }
+
+    // Delete task from Firestore
+    func deleteTask(task: Task) {
+        guard let user = Auth.auth().currentUser, let taskId = task.id else {
+            return
+        }
+        
+        db.collection("users").document(user.uid).collection("tasks").document(taskId).delete() { err in
+            if let err = err {
+                print("Error removing task: \(err)")
+            } else {
+                self.fetchTasks()
+            }
+        }
+    }
+
+    // Update task status
+    func updateTask(task: Task) {
+        guard let user = Auth.auth().currentUser, let taskId = task.id else {
+            return
+        }
+        
+        let docRef = db.collection("users").document(user.uid).collection("tasks").document(taskId)
+        
+        docRef.updateData([
+            "status": task.status
+        ]) { err in
+            if let err = err {
+                print("Error updating task: \(err)")
+            }
+        }
+    }
+
     func getUsername() {
             guard let userId = Auth.auth().currentUser?.uid else {
                 return
@@ -87,7 +192,68 @@ class AuthViewModel: ObservableObject {
            }
        }
    
-    
+    /*func fetchTasks() {
+            guard let user = Auth.auth().currentUser else {
+                return
+            }
+            
+            db.collection("users").document(user.uid).collection("tasks").getDocuments { (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting tasks: \(err)")
+                } else {
+                    self.tasks = querySnapshot!.documents.compactMap({ (document) -> Task? in
+                        return try? document.data(as: Task.self)
+                    })
+                }
+            }
+        }
+        
+        func addTask(title: String) {
+            guard let user = Auth.auth().currentUser else {
+                return
+            }
+            
+            let newTask = Task(title: title)
+            
+            do {
+                let _ = try db.collection("users").document(user.uid).collection("tasks").addDocument(from: newTask)
+            } catch let error {
+                print("Error writing task to Firestore: \(error)")
+            }
+        }
+        
+        func deleteTask(at index: Int) {
+            guard let user = Auth.auth().currentUser else {
+                return
+            }
+            
+            let task = tasks[index]
+            db.collection("users").document(user.uid).collection("tasks").document(task.id!).delete() { err in
+                if let err = err {
+                    print("Error removing task: \(err)")
+                } else {
+                    fetchTasks()
+                }
+            }
+        }*/
+
+        func saveStudySessionDataWithTask(duration: Int, date: Date, task: Task) {
+            guard let user = Auth.auth().currentUser else {
+                return
+            }
+            
+            let studySessionData: [String: Any] = [
+                "duration": duration,
+                "date": date,
+                "task": task.title
+            ]
+            
+            db.collection("users").document(user.uid).collection("studySessions").addDocument(data: studySessionData) { error in
+                if let error = error {
+                    print("Error writing study session data: \(error)")
+                }
+            }
+        }
     func signIn(email: String, password: String) {
         // Reset error message
         errorMessage = ""
@@ -604,5 +770,10 @@ struct User: Identifiable {
     var email: String
 }
     
-    
+struct Task: Codable, Identifiable {
+    @DocumentID var id: String?
+    var title: String
+    var status: Bool
+}
+           
 

@@ -233,24 +233,30 @@ struct TimerView: View {
                         currentTab = .timer
                     }) {
                         Text("Timer")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24))
                             .fontWeight(currentTab == .timer ? .bold : .none)
-                            .underline(currentTab == .timer, color: Color.black)
+                            .underline(currentTab == .timer, color: Color.white)
                     }
                     Spacer()
                     Button(action: {
                         currentTab = .tasks
                     }) {
                         Text("Tasks")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24))
                             .fontWeight(currentTab == .tasks ? .bold : .none)
-                            .underline(currentTab == .tasks, color: Color.black)
+                            .underline(currentTab == .tasks, color: Color.white)
                     }
                     Spacer()
                     Button(action: {
                         currentTab = .calendar
                     }) {
                         Text("Calendar")
+                            .foregroundColor(.white)
+                            .font(.system(size: 24))
                             .fontWeight(currentTab == .calendar ? .bold : .none)
-                            .underline(currentTab == .calendar, color: Color.black)
+                            .underline(currentTab == .calendar, color: Color.white)
                     }
                 }.padding()
                 
