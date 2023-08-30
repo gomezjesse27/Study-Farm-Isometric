@@ -344,7 +344,7 @@ struct TimerView: View {
                         // ... your other views here ...
                         
                         // Calendar View
-                        Text("Calendar View")
+                        CalendarView()
                             .tag(Tab.calendar)
                     
                 }

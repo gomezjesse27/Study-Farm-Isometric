@@ -6,6 +6,7 @@ struct TasksView: View {
     @State private var newTask = ""
     @State private var startTime = Date.now
     @State private var endTime = Date.now
+    @State private var date = Date()
     @ObservedObject private var viewModel = AuthViewModel()
     @State private var currentEditingTask: Task?
 
@@ -121,6 +122,9 @@ struct TasksView: View {
                         DatePicker("end time", selection: $endTime, displayedComponents: .hourAndMinute)
                             .padding()
                             .padding()
+                        DatePicker("date", selection: $date, displayedComponents: .date)
+                            .padding()
+                            .padding()
                         
                         
                         Button(action: {
@@ -128,7 +132,7 @@ struct TasksView: View {
                                 // Ensure 'currentUserId' exists in 'AuthViewModel'.
                                 // If it doesn't, you need to define or find the correct name for that property.
                                 
-                                    viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime)
+                                viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime, date: date)
                                     showingEditTask = false
                                     currentEditingTask = nil // Clearing the current editing task
                                 

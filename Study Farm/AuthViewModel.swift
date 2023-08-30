@@ -29,6 +29,7 @@ class AuthViewModel: ObservableObject {
     @Published var sellAnimalError: String = ""
     @Published var username: String? // to hold the current user's username
     @Published var timerIsActive: Bool = false
+    @Published var tasksForTheDay: [TaskInterval] = []
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     let db = Firestore.firestore()
     
@@ -74,10 +75,11 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-    func updateTimeForTask(task: Task, startTime: Date, endTime: Date) {
+    func updateTimeForTask(task: Task, startTime: Date, endTime: Date ,date: Date) {
         guard let user = Auth.auth().currentUser else {
             return
         }
+        let utcCalendar = Calendar(identifier: .gregorian)
         
         guard let taskId = task.id else { return }
 
@@ -90,7 +92,9 @@ class AuthViewModel: ObservableObject {
         newIntervalRef.setData([
             "startTime": startTime.timeIntervalSince1970,
             "endTime": endTime.timeIntervalSince1970,
-            "date": Date().timeIntervalSince1970
+            "date": utcCalendar.startOfDay(for: date).timeIntervalSince1970
+,
+            "taskName": task.title
         ]) { err in
             if let err = err {
                 print("Error adding study interval: \(err)")
@@ -104,7 +108,59 @@ class AuthViewModel: ObservableObject {
         db.collection("users").document(user.uid).collection("tasks").addFiel
         
     }*/
-    
+    func fetchTasksFor(date: Date) {
+        guard let user = Auth.auth().currentUser else {
+            return
+        }
+        
+        let db = Firestore.firestore()
+            let tasksCollection = db.collection("users").document(user.uid).collection("tasks")
+
+            var utcCalendar = Calendar(identifier: .gregorian)
+            utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+
+        let startOfDay = utcCalendar.date(byAdding: .day, value: -1, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970;
+        let endOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970
+            
+        
+        tasksCollection.getDocuments { snapshot, error in
+            if let error = error {
+                print("Error fetching tasks: \(error)")
+                return
+            }
+            
+            var dayTasks: [TaskInterval] = []
+            
+            for document in snapshot!.documents {
+                // Fetch studyIntervals collection from the task
+                let studyIntervals = document.reference.collection("studyIntervals")
+                studyIntervals.whereField("date", isGreaterThanOrEqualTo: startOfDay)
+                    .whereField("date", isLessThanOrEqualTo: endOfDay)
+                    .getDocuments { intervalSnapshot, intervalError in
+                        
+                        if let intervalError = intervalError {
+                            print("Error fetching intervals: \(intervalError)")
+                            return
+                        }
+                        
+                        for interval in intervalSnapshot!.documents {
+                            let data = interval.data()
+                            let startTime = self.date(fromTimestamp: data["startTime"] as! Double)
+                            let endTime = self.date(fromTimestamp: data["endTime"] as! Double)
+                            let title = data["taskName"] as! String
+                            
+                            let startHour = Calendar.current.component(.hour, from: startTime)
+                            let endHour = Calendar.current.component(.hour, from: endTime)
+                            
+                            dayTasks.append(TaskInterval(title: title, startHour: startHour, endHour: endHour))
+                        }
+                        
+                        self.tasksForTheDay = dayTasks
+                    }
+            }
+        }
+    }
+
     // Add new task to Firestore
     func addTask(title: String) {
         guard let user = Auth.auth().currentUser else {
@@ -549,7 +605,9 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
+    private func date(fromTimestamp timestamp: Double) -> Date {
+            return Date(timeIntervalSince1970: timestamp)
+        }
 
     private func fetchUsersFromIDs(ids: [String], updatingFriends: Bool) {
         for id in ids {
