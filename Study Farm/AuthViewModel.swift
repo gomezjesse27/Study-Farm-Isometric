@@ -75,7 +75,7 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-    func updateTimeForTask(task: Task, startTime: Date, endTime: Date ,date: Date) {
+    func updateTimeForTask(task: Task, startTime: Date, endTime: Date ,date: Date, formatteddateforref: String) {
         guard let user = Auth.auth().currentUser else {
             return
         }
@@ -92,7 +92,8 @@ class AuthViewModel: ObservableObject {
         newIntervalRef.setData([
             "startTime": startTime.timeIntervalSince1970,
             "endTime": endTime.timeIntervalSince1970,
-            "date": utcCalendar.startOfDay(for: date).timeIntervalSince1970
+            "date": utcCalendar.startOfDay(for: date).timeIntervalSince1970,
+            "formattedDate": formatteddateforref
 ,
             "taskName": task.title
         ]) { err in
@@ -119,8 +120,8 @@ class AuthViewModel: ObservableObject {
             var utcCalendar = Calendar(identifier: .gregorian)
             utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
 
-        let startOfDay = utcCalendar.date(byAdding: .day, value: -1, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970;
-        let endOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970
+        let startOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970;
+        let endOfDay = utcCalendar.date(byAdding: .day, value: 1, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970
             
         
         tasksCollection.getDocuments { snapshot, error in

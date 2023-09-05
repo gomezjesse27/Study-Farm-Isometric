@@ -21,6 +21,7 @@ struct CalendarView: View {
             VStack(spacing: 10) {
                 HStack {
                     Spacer()
+                    
                     Button(action: { moveDate(by: -1) }) {
                         Text("<-")
                     }
@@ -49,8 +50,10 @@ struct CalendarView: View {
                         
                         // To show the task during this hour, if any
                         if let task = taskDuring(hour: hour) {
-                            Text(formatted(date: currentDate))
+                            
+                            
                             Text(task.title)
+                            
                                 
                                 .background(Color.blue.opacity(0.2))
                                 .frame(height: 40)
@@ -92,6 +95,6 @@ extension CalendarView {
 
     func taskDuring(hour: Int) -> TaskInterval? {
         return viewModel.tasksForTheDay.first(where: { $0.startHour <= hour && $0.endHour > hour })
-    }
+            }
     
 }

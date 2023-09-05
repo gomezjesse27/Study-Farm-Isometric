@@ -7,6 +7,7 @@ struct TasksView: View {
     @State private var startTime = Date.now
     @State private var endTime = Date.now
     @State private var date = Date()
+    
     @ObservedObject private var viewModel = AuthViewModel()
     @State private var currentEditingTask: Task?
 
@@ -131,8 +132,8 @@ struct TasksView: View {
                             if let editingTask = currentEditingTask, startTime < endTime {
                                 // Ensure 'currentUserId' exists in 'AuthViewModel'.
                                 // If it doesn't, you need to define or find the correct name for that property.
-                                
-                                viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime, date: date)
+                                let formatted = formatted(date: date)
+                                viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime, date: date, formatteddateforref: formatted)
                                     showingEditTask = false
                                     currentEditingTask = nil // Clearing the current editing task
                                 
@@ -159,5 +160,12 @@ struct TasksView: View {
         }.onAppear(perform: {
             viewModel.fetchTasks()
         })
+    }
+}
+extension TasksView {
+    func formatted(date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        return formatter.string(from: date)
     }
 }
