@@ -8,7 +8,7 @@ struct FarmView: View {
     @State private var cameraNode = SCNNode()
     
     @State private var grid: Grid = Grid(size: 20) // Define grid here as a state variable
-    let gridSize: Int = 20 // Back to being a constant and type-casted to Int
+    let gridSize: Int = 20
     
     var body: some View {
         VStack {
@@ -36,7 +36,7 @@ struct FarmView: View {
                                 let newZoom = zoom / Double(value)
                                 let clampedZoom = min(max(newZoom, 10), 30)
                                 cameraNode.camera?.orthographicScale = clampedZoom
-                                //cameraNode.position.y = Float(clampedZoom) * 0.7 // Comment out or remove this line
+                                
                             }
                 )
                 .onAppear(perform: setupScene)
@@ -61,9 +61,9 @@ struct FarmView: View {
     
     func setupCamera() {
         cameraNode.camera = SCNCamera()
-        cameraNode.position = SCNVector3(x: 0, y: 15, z: 3) // Adjust this to move the initial camera position
+        cameraNode.position = SCNVector3(x: 0, y: 15, z: 3) // this is to move the initial camera position
         cameraNode.camera?.usesOrthographicProjection = true
-        cameraNode.camera?.orthographicScale = 14 // Adjust this to zoom out at the start
+        cameraNode.camera?.orthographicScale = 14 //this is to zoom out at the start
         cameraNode.camera?.zFar = 1000
         cameraNode.eulerAngles = SCNVector3(-45.degreesToRadians, 45.degreesToRadians, 0)
         scene.rootNode.addChildNode(cameraNode)
@@ -121,7 +121,7 @@ struct FarmView: View {
 
                         // Start moving the animal
                         
-                        animal.setupStateMachine() // make sure to setup state machine for the animal
+                        animal.setupStateMachine() //setup state machine for the animal
                         animal.setupMovementController(grid: grid) // make sure the grid is set before starting movement
                         animal.startMoving()
                     } else {

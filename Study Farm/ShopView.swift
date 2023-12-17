@@ -15,6 +15,7 @@ struct ShopView: View {
     @State var showAnimalSellView = false
 
     var body: some View {
+       
         VStack {
             HStack {
                 Button(action: {
@@ -181,7 +182,11 @@ struct AnimalSellView: View {
 
 
 
-
+struct Content_View_Previews: PreviewProvider {
+    static var previews: some View{
+        ShopView()
+    }
+}
 
 
 

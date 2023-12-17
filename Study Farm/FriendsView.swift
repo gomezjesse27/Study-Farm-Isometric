@@ -144,14 +144,14 @@ struct AddFriendView: View {
     
     var body: some View {
         ZStack {
-            Image("TimerViewBG") // Replace this with your background image name
+            Image("TimerViewBG")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             
             VStack {
                 Section(header: Text("Friend's Email")) {
                     TextField("Email", text: $email)
-                        .foregroundColor(.black) // Added this line
+                        .foregroundColor(.black)
                         .keyboardType(.emailAddress)
                         .autocapitalization(.none)
                         .disableAutocorrection(true)
@@ -197,7 +197,7 @@ struct FriendRequestsView: View {
     
     var body: some View {
         ZStack {
-            Image("TimerViewBG") // Replace this with your background image name
+            Image("TimerViewBG")
                 .resizable()
                 .edgesIgnoringSafeArea(.all)
             
@@ -206,7 +206,7 @@ struct FriendRequestsView: View {
                     ForEach(authViewModel.friendRequests) { friendRequest in
                         HStack {
                             Text(friendRequest.email) // Display the friend request ID here
-                                .foregroundColor(.black) // Added this line
+                                .foregroundColor(.black)
                             Spacer()
                             Button(action: {
                                 authViewModel.acceptFriendRequest(fromUserId: friendRequest.id)
@@ -224,9 +224,9 @@ struct FriendRequestsView: View {
                         .padding()
                         .background(Color.white)
                         .cornerRadius(8)
-                        Divider()  // Adding Divider to mimic List behavior
+                        Divider()
                     }
-                    .padding()  // Add padding to mimic List behavior
+                    .padding()
                 }
             }
         }

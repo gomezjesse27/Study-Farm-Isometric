@@ -32,6 +32,7 @@
 		238334FB2A1D469F00319E7A /* crate.png in Resources */ = {isa = PBXBuildFile; fileRef = 238334FA2A1D469F00319E7A /* crate.png */; };
 		238335022A1D506300319E7A /* SwiftUICharts in Frameworks */ = {isa = PBXBuildFile; productRef = 238335012A1D506300319E7A /* SwiftUICharts */; };
 		238335102A20011A00319E7A /* AAInfographics in Frameworks */ = {isa = PBXBuildFile; productRef = 2383350F2A20011A00319E7A /* AAInfographics */; };
+		23C1C11B2AFC072200AF15FE /* CalendarKit in Frameworks */ = {isa = PBXBuildFile; productRef = 23C1C11A2AFC072200AF15FE /* CalendarKit */; };
 		23D5791C2A17F9840055C693 /* Study_FarmApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5791B2A17F9840055C693 /* Study_FarmApp.swift */; };
 		23D5791E2A17F9840055C693 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 23D5791D2A17F9840055C693 /* ContentView.swift */; };
 		23D579202A17F9860055C693 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 23D5791F2A17F9860055C693 /* Assets.xcassets */; };
@@ -152,6 +153,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				23C1C11B2AFC072200AF15FE /* CalendarKit in Frameworks */,
 				23E9FB5D2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				238335022A1D506300319E7A /* SwiftUICharts in Frameworks */,
 				238335102A20011A00319E7A /* AAInfographics in Frameworks */,
@@ -302,6 +304,7 @@
 				238335012A1D506300319E7A /* SwiftUICharts */,
 				2383350F2A20011A00319E7A /* AAInfographics */,
 				2363B2E52A2A8F8100E212B8 /* FirebaseFirestoreSwift */,
+				23C1C11A2AFC072200AF15FE /* CalendarKit */,
 			);
 			productName = "Study Farm";
 			productReference = 23D579182A17F9840055C693 /* Study Farm.app */;
@@ -380,6 +383,7 @@
 				238335002A1D506300319E7A /* XCRemoteSwiftPackageReference "ChartView" */,
 				2383350B2A1FFF2200319E7A /* XCRemoteSwiftPackageReference "SwiftCharts" */,
 				2383350E2A20011A00319E7A /* XCRemoteSwiftPackageReference "AAChartKit-Swift" */,
+				23C1C1192AFC072200AF15FE /* XCRemoteSwiftPackageReference "CalendarKit" */,
 			);
 			productRefGroup = 23D579192A17F9840055C693 /* Products */;
 			projectDirPath = "";
@@ -837,6 +841,14 @@
 				minimumVersion = 7.0.0;
 			};
 		};
+		23C1C1192AFC072200AF15FE /* XCRemoteSwiftPackageReference "CalendarKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/richardtop/CalendarKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		23E9FB5B2A194743002AB389 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
@@ -862,6 +874,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 2383350E2A20011A00319E7A /* XCRemoteSwiftPackageReference "AAChartKit-Swift" */;
 			productName = AAInfographics;
+		};
+		23C1C11A2AFC072200AF15FE /* CalendarKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 23C1C1192AFC072200AF15FE /* XCRemoteSwiftPackageReference "CalendarKit" */;
+			productName = CalendarKit;
 		};
 		23E9FB5C2A194743002AB389 /* FirebaseAnalyticsWithoutAdIdSupport */ = {
 			isa = XCSwiftPackageProductDependency;

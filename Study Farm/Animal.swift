@@ -32,7 +32,7 @@ class Animal:Equatable {
     }
     static func == (lhs: Animal, rhs: Animal) -> Bool {
            return lhs.name == rhs.name && lhs.model == rhs.model && lhs.texture == rhs.texture
-           // and so on for each property you consider makes an animal unique...
+           
        }
         
     func setupStateMachine() {

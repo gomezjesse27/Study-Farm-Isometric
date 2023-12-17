@@ -11,7 +11,7 @@ struct TasksView: View {
     @ObservedObject private var viewModel = AuthViewModel()
     @State private var currentEditingTask: Task?
 
-    /*@State private var taskStatuses: [bool] = []*/
+   
 
 
     var body: some View {
@@ -40,10 +40,7 @@ struct TasksView: View {
                 ScrollView {
                     ForEach(viewModel.tasks) { task in
                         HStack {
-                           /*Button(action: { viewModel.updateTask(task: task) }) {
-                                Image(systemName: task.status ? "checkmark.circle.fill" : "circle")
-                                    .foregroundColor(.white)
-                            }*/
+                           
                             
                             Button(action: {
                                 currentEditingTask = task
@@ -131,14 +128,14 @@ struct TasksView: View {
                         Button(action: {
                             if let editingTask = currentEditingTask, startTime < endTime {
                                 // Ensure 'currentUserId' exists in 'AuthViewModel'.
-                                // If it doesn't, you need to define or find the correct name for that property.
+                            
                                 let formatted = formatted(date: date)
                                 viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime, date: date, formatteddateforref: formatted)
                                     showingEditTask = false
                                     currentEditingTask = nil // Clearing the current editing task
                                 
                             } else {
-                                // Display an error to the user, possibly using an alert.
+                                // Need to implement eror message here
                             }
                             showingAddTask = false
                         }) {

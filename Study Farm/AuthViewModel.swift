@@ -9,7 +9,7 @@ import Foundation
 import FirebaseAuth
 import FirebaseFirestore
 import FirebaseFirestoreSwift
-
+import CalendarKit
 
 
 class AuthViewModel: ObservableObject {
@@ -53,13 +53,7 @@ class AuthViewModel: ObservableObject {
             Auth.auth().removeStateDidChangeListener(handle)
         }
     }
-   /* func savetask() {
-        guard let userId = Auth.auth().currentUser?.uid else{
-            return
-        }
-        let docRef = db.collection("")
-    }*/
-    // Fetch tasks from Firestore
+  
     func fetchTasks() {
         guard let user = Auth.auth().currentUser else {
             return
@@ -104,26 +98,22 @@ class AuthViewModel: ObservableObject {
             }
         }
     }
-
-    /*func editTaskTime(_ tasktime: Int) {
-        db.collection("users").document(user.uid).collection("tasks").addFiel
-        
-    }*/
+    
+    
     func fetchTasksFor(date: Date) {
         guard let user = Auth.auth().currentUser else {
             return
         }
         
         let db = Firestore.firestore()
-            let tasksCollection = db.collection("users").document(user.uid).collection("tasks")
+        let tasksCollection = db.collection("users").document(user.uid).collection("tasks")
 
-            var utcCalendar = Calendar(identifier: .gregorian)
-            utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
+        var utcCalendar = Calendar(identifier: .gregorian)
+        utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
 
-        let startOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970;
-        let endOfDay = utcCalendar.date(byAdding: .day, value: 1, to: utcCalendar.startOfDay(for:   date))!.timeIntervalSince1970
+        let startOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for: date))!.timeIntervalSince1970;
+        let endOfDay = utcCalendar.date(byAdding: .day, value: 1, to: utcCalendar.startOfDay(for: date))!.timeIntervalSince1970
             
-        
         tasksCollection.getDocuments { snapshot, error in
             if let error = error {
                 print("Error fetching tasks: \(error)")
@@ -151,9 +141,11 @@ class AuthViewModel: ObservableObject {
                             let title = data["taskName"] as! String
                             
                             let startHour = Calendar.current.component(.hour, from: startTime)
+                            let startMinute = Calendar.current.component(.minute, from: startTime)
                             let endHour = Calendar.current.component(.hour, from: endTime)
+                            let endMinute = Calendar.current.component(.minute, from: endTime)
                             
-                            dayTasks.append(TaskInterval(title: title, startHour: startHour, endHour: endHour))
+                            dayTasks.append(TaskInterval(title: title, startHour: startHour, startMinute: startMinute, endHour: endHour, endMinute: endMinute))
                         }
                         
                         self.tasksForTheDay = dayTasks
@@ -193,7 +185,7 @@ class AuthViewModel: ObservableObject {
     }
 
     // Update task status
-    func updateTask(task: Task) {
+    /*func updateTask(task: Task) {
         guard let user = Auth.auth().currentUser, let taskId = task.id else {
             return
         }
@@ -207,7 +199,7 @@ class AuthViewModel: ObservableObject {
                 print("Error updating task: \(err)")
             }
         }
-    }
+    }*/
 
     func getUsername() {
             guard let userId = Auth.auth().currentUser?.uid else {
@@ -249,50 +241,6 @@ class AuthViewModel: ObservableObject {
            }
        }
    
-    /*func fetchTasks() {
-            guard let user = Auth.auth().currentUser else {
-                return
-            }
-            
-            db.collection("users").document(user.uid).collection("tasks").getDocuments { (querySnapshot, err) in
-                if let err = err {
-                    print("Error getting tasks: \(err)")
-                } else {
-                    self.tasks = querySnapshot!.documents.compactMap({ (document) -> Task? in
-                        return try? document.data(as: Task.self)
-                    })
-                }
-            }
-        }
-        
-        func addTask(title: String) {
-            guard let user = Auth.auth().currentUser else {
-                return
-            }
-            
-            let newTask = Task(title: title)
-            
-            do {
-                let _ = try db.collection("users").document(user.uid).collection("tasks").addDocument(from: newTask)
-            } catch let error {
-                print("Error writing task to Firestore: \(error)")
-            }
-        }
-        
-        func deleteTask(at index: Int) {
-            guard let user = Auth.auth().currentUser else {
-                return
-            }
-            
-            let task = tasks[index]
-            db.collection("users").document(user.uid).collection("tasks").document(task.id!).delete() { err in
-                if let err = err {
-                    print("Error removing task: \(err)")
-                } else {
-                    fetchTasks()
-                }
-            }
-        }*/
 
         func saveStudySessionDataWithTask(duration: Int, date: Date, task: Task) {
             guard let user = Auth.auth().currentUser else {
@@ -499,7 +447,7 @@ class AuthViewModel: ObservableObject {
                     }
                 }
                 DispatchQueue.main.async {
-                    self.friendAnimals = animals // Assuming you have defined `friendAnimals` somewhere in the class
+                    self.friendAnimals = animals
                 }
             }
         }
