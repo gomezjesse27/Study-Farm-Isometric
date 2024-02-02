@@ -1,11 +1,12 @@
 //
 //  CreateAccountView.swift
 //  Study Farm
-//
 //  Created by Jaysen Gomez on 5/20/23.
 //
 import Foundation
 import SwiftUI
+
+
 struct CreateAccountView: View {
     @EnvironmentObject var authViewModel: AuthViewModel
     @State private var email: String = ""

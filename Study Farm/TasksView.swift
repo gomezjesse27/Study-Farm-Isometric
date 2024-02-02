@@ -9,6 +9,7 @@ struct TasksView: View {
     @State private var date = Date()
     
     @ObservedObject private var viewModel = AuthViewModel()
+    
     @State private var currentEditingTask: Task?
 
    
@@ -129,10 +130,12 @@ struct TasksView: View {
                             if let editingTask = currentEditingTask, startTime < endTime {
                                 // Ensure 'currentUserId' exists in 'AuthViewModel'.
                             
-                                let formatted = formatted(date: date)
+                                let formatted = date.formatted(date: .complete, time: .omitted)
+                               // .formatted(date: .complete, time: .omitted)
                                 viewModel.updateTimeForTask( task: editingTask, startTime: startTime, endTime: endTime, date: date, formatteddateforref: formatted)
                                     showingEditTask = false
                                     currentEditingTask = nil // Clearing the current editing task
+                                
                                 
                             } else {
                                 // Need to implement eror message here
@@ -164,5 +167,12 @@ extension TasksView {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         return formatter.string(from: date)
+    }
+}
+
+
+struct TasksView_Previews: PreviewProvider {
+    static var previews: some View {
+        TasksView()
     }
 }

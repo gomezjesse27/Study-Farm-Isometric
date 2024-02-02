@@ -8,12 +8,12 @@ struct AAChartKitView: UIViewRepresentable {
     func makeUIView(context: Context) -> AAChartView {
         let chartView = AAChartView()
         chartView.aa_drawChartWithChartModel(chartModel)
-        chartView.isClearBackgroundColor = true
+        chartView.isClearBackgroundColor = true // Try making the chart background clear
         return chartView
     }
 
     func updateUIView(_ uiView: AAChartView, context: Context) {
-        
+        // Redraw chart with current data
         uiView.aa_refreshChartWholeContentWithChartModel(chartModel)
     }
 }
@@ -56,10 +56,10 @@ struct ProfileView: View {
                 .padding()
                 .background(Color.pastelGreen)
 
-               
+                // Add the AAChartKitView here, only if aaChartModel is not nil
                 if let chartModel = self.aaChartModel {
                     AAChartKitView(chartModel: chartModel)
-                        .frame(height: 300)
+                        .frame(height: 300) // Set a proper frame according to your needs
                         .padding()
                 }
 

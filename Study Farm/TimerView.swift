@@ -1,3 +1,4 @@
+
 //
 //  TimerView.swift
 //  Study Farm
@@ -273,6 +274,11 @@ private func formatTime(time: Double) -> String {
 }
 
 
-
-
-
+struct TimerView_Previews: PreviewProvider {
+    static var previews: some View {
+        TimerView()
+       
+        
+        
+    }
+}

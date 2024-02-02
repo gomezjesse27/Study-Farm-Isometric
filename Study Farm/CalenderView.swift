@@ -1,89 +1,366 @@
-import Foundation
+
+
+
 import SwiftUI
+import Foundation
 
 struct CalendarView: View {
-    // To track which day we're on
-    @State private var currentDate = Date()
-    @ObservedObject private var viewModel = AuthViewModel()
+    @ObservedObject private var dataModel = AuthViewModel()
+    @State private var currentDate: Date = .init()
+    @State private var weekSlider: [[Date.WeekDay]] = []
+    @State private var currentWeekIndex : Int = 1
+    @State private var createWeek: Bool = false
+    //@State private var testTask: TaskInterval
     
-    @State private var showingAddTask = false
-
+    @Namespace private var animation
     var body: some View {
-        VStack(spacing: 10) {
-            HStack {
-                Spacer()
+        ZStack{
+            Color(red: 188/255, green: 224/255, blue: 247/255)
+                .edgesIgnoringSafeArea(.all)
+            
+            VStack(alignment: .leading, spacing: 0){
+                //HEADER VIEW
+                HeaderView()
                 
-                Button(action: { moveDate(by: -1) }) {
-                    Text("<-")
-                }
                 
-                Text(formatted(date: currentDate))
-                if formatted(date: currentDate) != formatted(date: Date()) {
-                    Button(action: { moveDate(by: 1) }) {
-                        Text("->")
-                    }
-                }
-                Spacer()
                 
-                Button(action: { showingAddTask = true }) {
-                    Image(systemName: "plus")
-                        .foregroundColor(.white)
-                        .font(.largeTitle)
-                }
+                TaskView()
+                /*.onChange(of: currentDate) { newDate in
+                 dataModel.fetchTasksFor(date: currentDate.formatted(date: .complete, time: .omitted))
+                 print (currentDate.formatted())
+                 print("Changed")
+                 }*/
+                
             }
-            .font(.headline)
-
-            ScrollView {
-                GeometryReader { geo in
-                    let hourHeight = geo.size.height / 24.0
+            .frame(maxHeight: .infinity, alignment: .top)
+            .onAppear(perform: {
+                if weekSlider.isEmpty {
+                    let currentWeek = Date().fetchweek()
                     
-                    ForEach(viewModel.tasksForTheDay, id: \.title) { task in
-                        let startOffset = (CGFloat(task.startHour) + CGFloat(task.startMinute) / 60.0) * hourHeight
-                        let taskHeight = (CGFloat(task.endHour) + CGFloat(task.endMinute) / 60.0 - CGFloat(task.startHour) - CGFloat(task.startMinute) / 60.0) * hourHeight
+                    if let firstDate = currentWeek.first?.date{
+                        weekSlider.append(firstDate.createPreviousWeek())
+                    }
+                    weekSlider.append(currentWeek)
+                    
+                    if let lastDate = currentWeek.last?.date{
+                        weekSlider.append(lastDate.createNextWeek())
                         
-                        Button(action: {
-                            // Handle task button tap here
-                        }) {
-                            Text(task.title)
-                                .frame(maxWidth: .infinity)
-                                .padding()
-                                .background(Color.blue.opacity(0.2))
-                                .cornerRadius(8)
-                        }
-                        .frame(height: taskHeight)
-                        .offset(y: startOffset)
+                    }
+                    
+                    
+                }
+                
+                
+            })
+            
+            
+        }
+        
+    }
+        
+    
+    
+        
+    
+    
+    
+    
+    @ViewBuilder
+    func HeaderView() -> some View {
+        
+        VStack(alignment: .leading, spacing: 6){
+            HStack(spacing: 5) {
+                Text(currentDate.format("MMMM"))
+                    .foregroundColor(Color.blue)
+                Text(currentDate.format("YYYY"))
+                    .foregroundColor(Color.gray)
+            }
+            .font(.title.bold())
+            
+            Text(currentDate.formatted(date: .complete, time: .omitted))
+                .font(.callout)
+                .fontWeight(.semibold)
+                .foregroundColor(Color.gray)
+            
+            //Week Slider
+            TabView(selection: $currentWeekIndex){
+                ForEach(weekSlider.indices, id:\.self) { index in
+                    let week = weekSlider[index]
+                    WeekView(week)
+                        .padding(.horizontal, 15)
+                        .tag(index)
+                }
+            }
+            
+            .padding(.horizontal, -15)
+            .tabViewStyle(.page(indexDisplayMode: .never))
+            .frame(height: 90)
+            
+            
+            
+            
+        }
+        .frame(maxWidth: .infinity, alignment: .leading)
+        .overlay(alignment: .topTrailing, content: {
+            Button(action: {}, label: {
+                Image(systemName: "person.crop.circle")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 45, height: 45)
+                    
+            })
+        })
+        .padding(15)
+        .frame(minWidth: 100, alignment: .leading)
+        .background(Color(red: 188/255, green: 224/255, blue: 247/255))
+        .onChange(of: currentWeekIndex) {newValue in
+            if newValue == 0 || newValue == (weekSlider.count - 1) {
+                createWeek = true
+            }
+            
+        }
+    }
+    
+    @ViewBuilder
+    func TaskView() -> some View{
+        VStack{
+            ScrollView{
+                
+                ForEach(dataModel.tasksForTheDay) { TaskInterval in
+                    //print(TaskInterval.startHour.format("MMMM"))
+                    indiTask(taskName: TaskInterval.title, startHour: TaskInterval.startHour, startMinute: TaskInterval.startMinute, endHour: TaskInterval.endHour, endMinute: TaskInterval.endMinute)
+                    
+                    //print(TaskInterval.startHour.format("MMMM"))
+                    
+                }
+                
+                
+            }
+                
+            
+            
+            
+            
+            
+            
+        }
+        
+    }
+        
+    struct indiTask: View {
+        var taskName: String
+        var startHour: String
+        var startMinute: String
+        var endHour: String
+        var endMinute: String
+        
+        var body: some View{
+            
+            HStack{
+                
+                
+                Circle()
+                
+                    .fill(.cyan)
+                    .frame( width: 15, height: 15)
+                    .padding(5)
+                    
+                
+                Button(action: {}, label: {
+                    
+                    
+                    /// for each task {
+                    /// create taskview,
+                    ///
+                    ///
+                    ///
+                    Text("\(startHour):\(startMinute) - \(endHour):\(endMinute)   \(taskName)")
+                    
+                        .font(.headline)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 350, alignment: .center)
+                        .background(Color(red: 186/255, green: 233/255, blue: 217/255))
+                        .cornerRadius(15)
+                    //.frame(width: 150, alignment: .center)
+                    
+                    
+                })
+            }
+            
+            
+        }
+        
+        
+    }
+    
+    
+    @ViewBuilder
+    func WeekView(_ week: [Date.WeekDay]) -> some View {
+        HStack(spacing: 0){
+            ForEach(week) { day in
+                VStack(spacing: 8) {
+                    Text(day.date.format("E"))
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .foregroundStyle(Color.gray)
+                    
+                    Text(day.date.format("dd"))
+                        .font(.callout)
+                        .fontWeight(.medium)
+                        .foregroundStyle(isSameDate(day.date, currentDate) ? .white: Color.gray)
+                        .frame(width: 35, height: 35)
+                        .background(content: {
+                            if isSameDate(day.date, currentDate) {
+                                
+                                Circle()
+                                    
+                                    .fill(Color.blue)
+                                   // .matchedGeometryEffect(id: "TABINDICATOR", in: animation)
+                                
+                                
+                                
+                            }
+                            
+                        
+                            // Indicator to show which is todays date
+                            if day.date.isToday {
+                                
+                                Circle()
+                                    .fill(.cyan)
+                                    .frame( width: 5, height: 5)
+                                    .frame(maxHeight: .infinity, alignment: .bottom)
+                                    .offset(y: 12 )
+                            }
+                            
+                            Color(red: 186/255, green: 233/255, blue: 217/255)
+                                .cornerRadius(20)
+                            
+                            
+                            
+                        })
+                        .background(.white.shadow(.drop(radius: 1)), in: Circle())
+                        
+                }
+                
+                .frame(maxWidth: .infinity, alignment: .center)
+                .contentShape(Rectangle())
+                .onTapGesture{
+                    withAnimation(Animation.default){
+                        currentDate = day.date
+                        print(currentDate.formatted(date: .complete, time: .omitted))
+                        dataModel.fetchTasksFor(date: currentDate.formatted(date: .complete, time: .omitted))
+                        
+                        
                     }
                 }
-                .frame(height: 24 * 60)  // 24 hours x 60 pixels per hour
+                
             }
         }
-        .onAppear(perform: {
-            viewModel.fetchTasksFor(date: currentDate)
-        })
+        
+        
+        
+       
+        
+        
+        
+    }
+    
+    
+    
+    
+    
+    func isSameDate(_ date1: Date, _ date2: Date) -> Bool {
+        return Calendar.current.isDate(date1, inSameDayAs: date2)
     }
 }
 
-struct TaskInterval {
+
+
+
+struct CalendarView_Previews: PreviewProvider {
+    static var previews: some View {
+        CalendarView()
+    }
+}
+struct TaskInterval: Identifiable{
+    
+    
+    var id = UUID()
     var title: String
-    var startHour: Int // starting from 0 to 23
-    var startMinute: Int // from 0 to 59
-    var endHour: Int // ending on 1 to 24
-    var endMinute: Int // from 0 to 59
+    var startHour: String // starting from 0 to 23
+    var startMinute: String // from 0 to 59
+    var endHour: String // ending on 1 to 24
+    var endMinute: String // from 0 to 59
+    var formatDate: String // formatted date
+    //var date: Date
 }
 
-extension CalendarView {
-    func formatted(date: Date) -> String {
+extension Date{
+    
+    //Custom Date Format
+    
+    func format(_ format: String) -> String {
         let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        return formatter.string(from: date)
+        formatter.dateFormat = format
+        
+        return formatter.string(from: self)
     }
-
-    func moveDate(by days: Int) {
-        let dayComponent = DateComponents(day: days)
-        if let newDate = Calendar.current.date(byAdding: dayComponent, to: currentDate) {
-            currentDate = newDate
-            viewModel.fetchTasksFor(date: currentDate)
+    
+    
+    
+    var isToday: Bool {
+        return Calendar.current.isDateInToday(self)
+    }
+    
+    
+    func fetchweek(_ date : Date = .init()) -> [WeekDay] {
+        let calendar = Calendar.current
+        let startOfDate = calendar.startOfDay(for: date)
+        
+        var week: [WeekDay] = []
+        let weekForDate = calendar.dateInterval(of: .weekOfMonth, for: startOfDate)
+        guard let startOfWeek = weekForDate?.start else {
+            return []
         }
+        
+        
+        (0..<7).forEach { index in
+            if let weekDay = calendar.date(byAdding: .day, value: index, to: startOfWeek) {
+                week.append(.init(date: weekDay))
+            }
+        }
+        
+        return week
+        
+    }
+    
+    
+    
+    /// Creation of next week based on current weeks date
+    ///
+    func createNextWeek() -> [WeekDay] {
+        let calendar = Calendar.current
+        let startOfLastDate = calendar.startOfDay(for: self)
+        guard let nextDate = calendar.date(byAdding: .day, value: 1, to: startOfLastDate) else {
+            return []
+        }
+                return fetchweek(nextDate)
+    }
+    
+    
+    func createPreviousWeek() -> [WeekDay] {
+        let calendar = Calendar.current
+        let startOfFirstDate = calendar.startOfDay(for: self)
+        guard let previousDate = calendar.date(byAdding: .day, value: -1, to: startOfFirstDate) else{
+            
+            return []
+        }
+                return fetchweek(previousDate)
+    }
+    
+    struct WeekDay: Identifiable {
+        var id: UUID = .init()
+        var date: Date
     }
 }
-

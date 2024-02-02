@@ -33,6 +33,19 @@ class AuthViewModel: ObservableObject {
     var authStateDidChangeListenerHandle: AuthStateDidChangeListenerHandle?
     let db = Firestore.firestore()
     
+
+    func is24HourFormat() -> Bool {
+        let locale = Locale.current
+        let formatter = DateFormatter()
+        formatter.locale = locale
+        formatter.dateStyle = .none
+        formatter.timeStyle = .short
+        
+        let dateString = formatter.string(from: Date())
+        // If the date string contains the am/pm symbol, then it's not in 24-hour format
+        return !dateString.contains(formatter.amSymbol) && !dateString.contains(formatter.pmSymbol)
+    }
+    
     init() {
         authStateDidChangeListenerHandle = Auth.auth().addStateDidChangeListener { (auth, user) in
             if let user = user {
@@ -100,7 +113,7 @@ class AuthViewModel: ObservableObject {
     }
     
     
-    func fetchTasksFor(date: Date) {
+    func fetchTasksFor(date: String) {
         guard let user = Auth.auth().currentUser else {
             return
         }
@@ -111,8 +124,9 @@ class AuthViewModel: ObservableObject {
         var utcCalendar = Calendar(identifier: .gregorian)
         utcCalendar.timeZone = TimeZone(secondsFromGMT: 0)!
 
-        let startOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for: date))!.timeIntervalSince1970;
-        let endOfDay = utcCalendar.date(byAdding: .day, value: 1, to: utcCalendar.startOfDay(for: date))!.timeIntervalSince1970
+        //let startOfDay = utcCalendar.date(byAdding: .day, value: -1, to: utcCalendar.startOfDay(for: date))!.timeIntervalSince1970;
+        //let endOfDay = utcCalendar.date(byAdding: .day, value: 0, to: utcCalendar.startOfDay(for: date))!.timeIntervalSince1970
+        
             
         tasksCollection.getDocuments { snapshot, error in
             if let error = error {
@@ -125,8 +139,7 @@ class AuthViewModel: ObservableObject {
             for document in snapshot!.documents {
                 // Fetch studyIntervals collection from the task
                 let studyIntervals = document.reference.collection("studyIntervals")
-                studyIntervals.whereField("date", isGreaterThanOrEqualTo: startOfDay)
-                    .whereField("date", isLessThanOrEqualTo: endOfDay)
+                studyIntervals.whereField("formattedDate", isEqualTo: date)
                     .getDocuments { intervalSnapshot, intervalError in
                         
                         if let intervalError = intervalError {
@@ -138,6 +151,7 @@ class AuthViewModel: ObservableObject {
                             let data = interval.data()
                             let startTime = self.date(fromTimestamp: data["startTime"] as! Double)
                             let endTime = self.date(fromTimestamp: data["endTime"] as! Double)
+                            let formatDate = data["formattedDate"] as! String
                             let title = data["taskName"] as! String
                             
                             let startHour = Calendar.current.component(.hour, from: startTime)
@@ -145,7 +159,30 @@ class AuthViewModel: ObservableObject {
                             let endHour = Calendar.current.component(.hour, from: endTime)
                             let endMinute = Calendar.current.component(.minute, from: endTime)
                             
-                            dayTasks.append(TaskInterval(title: title, startHour: startHour, startMinute: startMinute, endHour: endHour, endMinute: endMinute))
+                            // Format minutes to always have two digits
+                            var formattedStartMinute = String(format: "%02d", startMinute)
+                            var formattedEndMinute = String(format: "%02d", endMinute)
+                            
+                            // Format hours based on 24-hour or 12-hour (AM/PM) preference
+                            let formattedStartHour: String
+                            let formattedEndHour: String
+                            let is24HourFormat = self.is24HourFormat()
+                            if is24HourFormat {
+                                formattedStartHour = String(format: "%02d", startHour)
+                                formattedEndHour = String(format: "%02d", endHour)
+                            } else {
+                                let startPeriod = startHour < 12 ? "AM" : "PM"
+                                let endPeriod = endHour < 12 ? "AM" : "PM"
+                                let adjustedStartHour = startHour % 12 == 0 ? 12 : startHour % 12
+                                let adjustedEndHour = endHour % 12 == 0 ? 12 : endHour % 12
+                                formattedStartMinute += " \(startPeriod)"
+                                formattedEndMinute += " \(endPeriod)"
+                                
+                                formattedStartHour = "\(adjustedStartHour)"
+                                formattedEndHour = "\(adjustedEndHour)"
+                            }
+                            
+                            dayTasks.append(TaskInterval(title: title, startHour: formattedStartHour, startMinute: formattedStartMinute, endHour: formattedEndHour, endMinute: formattedEndMinute, formatDate: formatDate))
                         }
                         
                         self.tasksForTheDay = dayTasks
@@ -755,6 +792,7 @@ class AuthViewModel: ObservableObject {
         }
     }
 
+    
 
 
     
